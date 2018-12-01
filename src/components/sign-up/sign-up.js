@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Logout extends Component{
+class SignUp extends Component{
     constructor(props){
         super(props);
         this.state = {};
@@ -9,10 +9,10 @@ class Logout extends Component{
     render(){
         return(
             <div>
-                Logout
+                SignUp
             </div>
         )
     }
 }
 
-export default Logout;
+export default SignUp;

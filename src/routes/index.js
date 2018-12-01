@@ -1,9 +1,9 @@
 import Login from '../components/login/login';
-import Logout from '../components/logout/logout';
+import SignUp from '../components/sign-up/sign-up';
 
 const indexRoutes = [
     {path: '/login', components: Login},
-    {path: '/logout', components: Logout},
+    {path: '/sign-up', components: SignUp},
 ]
 
 export default indexRoutes;

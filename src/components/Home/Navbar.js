@@ -12,7 +12,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import Badge from "@material-ui/core/Badge";
 import Avatar from "@material-ui/core/Avatar";
-import "../utils/navbar.css";
+import "../../utils/navbar.css";
 
 export default class Navbar extends Component {
   constructor(props) {

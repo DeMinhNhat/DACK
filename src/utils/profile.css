@@ -1,22 +1,31 @@
 .profile-card {
-  border-radius: 2px !important;
-  margin: 30px 30px 30px 0px;
+    border-radius: 2px !important;
+    margin: 30px 30px 30px 0px;
 }
 
 .profile-card-header {
-  padding: 20px !important;
+    padding: 20px !important;
 }
 
 .profile-card-title {
-  padding-top: 0 !important;
-  padding-bottom: 8px;
+    padding-top: 0 !important;
+    padding-bottom: 8px;
 }
 
 .profile-name {
-  font-size: 24px;
+    font-size: 24px;
 }
 
 .profile-avatar {
-  width: 50px !important;
-  height: 50px !important;
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.profile-item {
+    font-size: 16px !important;
+}
+
+.profile-num-avatar {
+    margin: 1px;
+    background-color: #1DA1F2 !important;
 }

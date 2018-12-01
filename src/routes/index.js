@@ -1,9 +1,12 @@
-import Login from '../components/login/login';
-import SignUp from '../components/sign-up/sign-up';
+import Login from '../components/Account/Login';
+import SignUp from '../components/Account/SignUp';
+import Home from '../components/Home/Home';
 
 const indexRoutes = [
     {path: '/login', components: Login},
-    {path: '/sign-up', components: SignUp},
+    {path: '/signup', components: SignUp},
+    {path: '/home', components: Home},
+    {path: '/', components: Home},
 ]
 
 export default indexRoutes;

@@ -5,7 +5,7 @@ import Avatar from "@material-ui/core/Avatar";
 import CardContent from "@material-ui/core/CardContent";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import "../utils/profile.css";
+import "../../utils/profile.css";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -32,15 +32,35 @@ export default class Profile extends Component {
           title={<div className="profile-name">{this.state.user.name}</div>}
         />
         <CardContent>
-          <ListItem button>
-            <ListItemText primary="Tweets"  style={{ flex: 1 }}/>
-            <Avatar>{this.state.user.tweetNum}</Avatar>
+          <ListItem className="profile-item" button>
+            <ListItemText
+              className="profile-item"
+              primary="Tweets"
+              style={{ flex: 1 }}
+            />
+            <Avatar className="profile-num-avatar profile-item">
+              {this.state.user.tweetNum}
+            </Avatar>
           </ListItem>
-          <ListItem button>
-            <ListItemText primary="Followers"  style={{ flex: 1 }} />
+          <ListItem className="profile-item" button>
+            <ListItemText
+              className="profile-item"
+              primary="Followers"
+              style={{ flex: 1 }}
+            />
+            <Avatar className="profile-num-avatar profile-item">
+              {this.state.user.followerNum}
+            </Avatar>
           </ListItem>
-          <ListItem button>
-            <ListItemText primary="Following"  style={{ flex: 1 }}/>
+          <ListItem className="profile-item" button>
+            <ListItemText
+              className="profile-item"
+              primary="Following"
+              style={{ flex: 1 }}
+            />
+            <Avatar className="profile-num-avatar profile-item">
+              {this.state.user.followingNum}
+            </Avatar>
           </ListItem>
         </CardContent>
       </Card>

@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Sticky from "react-sticky-el";
 import Navbar from "./Navbar";
 import Profile from "./Profile";
-import "../utils/home.css";
+import "../../utils/home.css";
 
 export default class Home extends Component {
   render() {

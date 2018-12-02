@@ -1,3 +1,19 @@
 .leftBar{
     background: #1da1f2;
+    height:90vh;
+    position: relative;
+}
+
+.contentLeft{
+    position: absolute;
+    left:30%;
+    top: 35%;
+}
+
+.inline{
+    float: left;
+}
+
+.inline span{
+    font-size: 25px;
 }

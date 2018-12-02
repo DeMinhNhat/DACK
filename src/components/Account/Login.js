@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+
+import LeftLogin  from'./LeftLogin/Left';
+
+import '../../utils/login.css'
+
 
 class Login extends Component{
     constructor(props){
@@ -7,10 +13,15 @@ class Login extends Component{
     }
 
     render(){
-        return(
-            <div>
-                Login
-            </div>
+        return (
+            <Grid container spacing={24}>
+                <Grid item xs={12} sm={6}>
+                    <LeftLogin />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    Right
+                </Grid>
+            </Grid>
         )
     }
 }

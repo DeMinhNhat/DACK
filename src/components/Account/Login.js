@@ -54,7 +54,7 @@ class Login extends Component{
                         </div>
                         <div className="blockContent">
                             <i class="fab fa-twitter"></i>
-                            <p>See what’s happening in the world right now </p>
+                            <h1>See what’s happening in the world right now </h1>
                         </div>
                         <div className="clockSignUp">
                             <p>Join Twitter today.</p>

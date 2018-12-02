@@ -67,3 +67,16 @@
     top: 50%;
     left: 15%;
 }
+
+.fa-twitter{
+    font-size: 55px;
+    color: #1da1f2;
+}
+
+.blockContent h1{
+    font-size: 27px;
+}
+
+.leftBar i{
+    font-size: 22px;
+}

@@ -10,10 +10,60 @@
     top: 35%;
 }
 
-.inline{
+.contentLeft .inline{
     float: left;
 }
 
-.inline span{
+.contentLeft .inline span{
     font-size: 25px;
+}
+
+.formLogin .inline{
+    float: left;
+    padding-left: 5%;
+    padding-top: 10px;
+    
+}
+
+.formLogin .inline2{
+    float: left;
+    padding-left: 5%;
+}
+
+.formLogin .inline2 a{
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.formLogin .inline3{
+    float: left;
+    padding-left: 5%;
+    padding-top: 4%;
+}
+
+.formLogin .inline3 button{
+    border-radius: 50%;
+}
+
+.rightLogin{
+    position: relative;
+    height: 100%;
+}
+
+.rightLogin .blockFromLogin{
+    position: absolute;
+    top: 1%;
+    width: 100%;
+}
+
+.rightLogin .blockContent{
+    position: absolute;
+    top: 30%;
+    left: 15%;
+}
+
+.rightLogin .clockSignUp{
+    position: absolute;
+    top: 50%;
+    left: 15%;
 }

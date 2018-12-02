@@ -46,7 +46,7 @@ class Login extends Component{
                                     <div className="inline3">
                                         <Button variant="outlined" color="primary">
                                             Log In
-                                </Button>
+                                        </Button>
                                     </div>
                                 </div>
                             </form>

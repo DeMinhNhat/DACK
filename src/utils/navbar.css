@@ -1,18 +1,18 @@
 .appbar {
-  position: fixed !important;
-  top: 0;
+    position: fixed !important;
+    top: 0;
 }
 
 .flexgrow {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 .search {
-  width: 350px;
-  height: 35px;
+    width: 350px;
+    height: 35px;
 }
 
 .page-button {
-  background: transparent;
-  font-size: 15px !important;
+    background: transparent;
+    font-size: 16px !important;
 }

@@ -14,9 +14,9 @@ export default class Profile extends Component {
       user: {
         avatar: "https://img.icons8.com/metro/1600/github.png",
         name: "Tokama",
-        followingNum: 4,
+        tweetNum: 3,
+        followingNum: 7,
         followerNum: 5,
-        tweetNum: 3
       }
     };
   }

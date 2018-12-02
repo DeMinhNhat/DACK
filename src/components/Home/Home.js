@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Sticky from "react-sticky-el";
 import Navbar from "./Navbar";
 import Profile from "./Profile";
+import Posts from "./Posts";
 import "../../utils/home.css";
 
 export default class Home extends Component {
@@ -10,21 +11,22 @@ export default class Home extends Component {
     return (
       <div>
         <Navbar />
-        <Grid container spacing={32}>
+        <Grid container spacing={12}>
           <Grid item xs={1} />
           <Grid className="grid" item xs={3}>
             <Sticky>
               <Profile />
             </Sticky>
           </Grid>
-          <Grid className="grid" item xs={6} />
           <Grid
-            style={{ display: "flex", justifyContent: "center" }}
+            style={{ justifyContent: "center" }}
             className="grid"
             item
-            xs={1}
-          />
-          <Grid item xs={1} />
+            xs={6}
+          >
+          <Posts/>
+          </Grid>
+          <Grid item xs={2} />
         </Grid>
       </div>
     );

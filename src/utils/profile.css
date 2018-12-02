@@ -1,6 +1,6 @@
 .profile-card {
     border-radius: 2px !important;
-    margin: 30px 30px 30px 0px;
+    margin: 64px 30px 30px 0px;
 }
 
 .profile-card-header {
@@ -27,5 +27,5 @@
 
 .profile-num-avatar {
     margin: 1px;
-    background-color: #1DA1F2 !important;
+    background-color:#292D3E!important;
 }

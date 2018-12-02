@@ -1,68 +1,68 @@
-.leftBar{
+.leftBar {
     background: #1da1f2;
-    height:90vh;
+    height: 90vh;
     position: relative;
 }
 
-.contentLeft{
+.contentLeft {
     position: absolute;
-    left:30%;
+    left: 30%;
     top: 35%;
 }
 
-.contentLeft .inline{
+.contentLeft .inline {
     float: left;
 }
 
-.contentLeft .inline span{
+.contentLeft .inline span {
     font-size: 25px;
 }
 
-.formLogin .inline{
+.formLogin .inline {
     float: left;
     padding-left: 5%;
     padding-top: 10px;
-    
+
 }
 
-.formLogin .inline2{
+.formLogin .inline2 {
     float: left;
     padding-left: 5%;
 }
 
-.formLogin .inline2 a{
+.formLogin .inline2 a {
     font-size: 12px;
     text-decoration: none;
 }
 
-.formLogin .inline3{
+.formLogin .inline3 {
     float: left;
     padding-left: 5%;
     padding-top: 4%;
 }
 
-.formLogin .inline3 button{
+.formLogin .inline3 button {
     border-radius: 50%;
 }
 
-.rightLogin{
+.rightLogin {
     position: relative;
     height: 100%;
 }
 
-.rightLogin .blockFromLogin{
+.rightLogin .blockFromLogin {
     position: absolute;
     top: 1%;
     width: 100%;
 }
 
-.rightLogin .blockContent{
+.rightLogin .blockContent {
     position: absolute;
     top: 30%;
     left: 15%;
 }
 
-.rightLogin .clockSignUp{
+.rightLogin .clockSignUp {
     position: absolute;
     top: 50%;
     left: 15%;

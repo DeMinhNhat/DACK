@@ -1,0 +1,84 @@
+.tlp-card {
+    border-radius: 2px !important;
+    margin-bottom: 20px;
+}
+
+.tlp-card:hover {
+    background-color: #F5F8FA;
+}
+
+.tlp-card-header {
+    padding: 20px !important;
+    margin: 0px;
+}
+
+.tlp-card-content {
+    padding: 5px !important;
+    color: #292D3E;
+    font-weight: lighter;
+}
+
+.tlp-card-action {
+    padding: 20px 20px 0 20px !important;
+}
+
+.tlp-card-action-comment {
+    padding: 20px !important;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.tlp-avatar {
+    width: 55px !important;
+    height: 55px !important;
+}
+
+.tlp-username {
+    font-size: 16px;
+    font-weight: bolder;
+    margin: 0px;
+}
+
+.tlp-time {
+    font-size: 12px;
+    margin: 0px;
+}
+
+.tlp-chirp {
+    font-size: 16px;
+}
+
+.tlp-action-field {
+    margin-right: 16px;
+    color:#292D3E;
+}
+
+.tlp-action-field:hover {
+    margin-right: 16px;
+    color:#DB969A;
+}
+
+.tlp-action-icon {
+    padding: 1px !important;
+    margin-right: 3px !important;
+}
+
+.tlp-action-icon-img {
+    width: 26px;
+    height: 26px;
+}
+
+.tlp-new-card {
+    border-radius: 2px !important;
+    margin-bottom: 20px;
+    margin-right: 30px;
+}
+
+.tlp-new-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tlp-action-comment{
+  height: 10px;
+}

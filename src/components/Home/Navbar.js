@@ -12,27 +12,25 @@ import HomeIcon from "@material-ui/icons/Home";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import Badge from "@material-ui/core/Badge";
 import Avatar from "@material-ui/core/Avatar";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import "../../utils/navbar.css";
 
 export default class Navbar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      search: "",
-      photos: [
-        "https://genknews.genkcdn.vn/2016/hinh-nen-gam-3d-2-1474200966875.jpg",
-        "https://hinhnendep.xyz/wp-content/uploads/2016/07/hinh-nen-lien-minh-lol-dep-hd-6.jpg",
-        "https://vignette.wikia.nocookie.net/leagueoflegends/images/1/12/Thresh_Qu%C3%A1n_Qu%C3%A2n.jpg/revision/latest?cb=20160408163627&path-prefix=vi"
-      ],
-      albums: [1, 2, 3],
-      tags: [1, 2, 3],
-      comments: "",
-      pickimage: false,
-      writecontent: false,
-      addtags: false,
-      pickalbum: false
-    };
+    this.state = { open: false };
   }
+
+  onOpenPost = () => {
+    this.setState({ open: true });
+  };
+
+  onClosePost = () => {
+    this.setState({ open: false });
+  };
 
   render() {
     return (
@@ -46,7 +44,7 @@ export default class Navbar extends Component {
                   <IconButton color="inherit">
                     <HomeIcon />
                   </IconButton>
-                  HOME
+                  Home
                 </Button>
                 <Button className="page-button" color="inherit">
                   <IconButton color="inherit">
@@ -54,7 +52,7 @@ export default class Navbar extends Component {
                       <NotificationsIcon />
                     </Badge>
                   </IconButton>
-                  NOTIFICATION
+                  Notifications
                 </Button>
                 <Button className="page-button" color="inherit">
                   <IconButton color="inherit">
@@ -62,7 +60,7 @@ export default class Navbar extends Component {
                       <MailIcon />
                     </Badge>
                   </IconButton>
-                  MESSAGES
+                  Messages
                 </Button>
 
                 <div className="flexgrow" />
@@ -80,10 +78,54 @@ export default class Navbar extends Component {
                 />
 
                 <Avatar src="https://img.icons8.com/metro/1600/github.png" />
+
+                <Button
+                  style={{
+                    height: "35px",
+                    marginLeft: "5px",
+                    fontSize: "16px",
+                    color: "white",
+                    backgroundColor: "#3A3A3A"
+                  }}
+                  onClick={this.onOpenPost}
+                >
+                  Chirp
+                </Button>
               </Toolbar>
             </Grid>
             <Grid item xs={1} />
           </Grid>
+
+          <Dialog
+            open={this.state.open}
+            onClose={this.onClosePost}
+            aria-labelledby="form-dialog-title"
+          >
+            <DialogTitle id="form-dialog-title">Chirping</DialogTitle>
+            <DialogContent
+              fullWidth
+              style={{
+                height: "160px",
+                width: "500px"
+              }}
+            >
+              <TextField
+                className="post"
+                placeholder="What's happening?"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                multiline={true}
+                rows={1}
+                rowsMax={6}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.onPost} color="primary">
+                Chirp
+              </Button>
+            </DialogActions>
+          </Dialog>
         </AppBar>
       </div>
     );

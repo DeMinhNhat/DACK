@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Router, Route, Switch } from "react-router";
 import { createBrowserHistory } from "history";
-
 import indexRoutes from "../routes";
 
 var hist = createBrowserHistory();

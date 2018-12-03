@@ -57,7 +57,7 @@ class Login extends Component{
                             <h1>See what’s happening in the world right now </h1>
                         </div>
                         <div className="clockSignUp">
-                            <p>Join Twitter today.</p>
+                            <p>Join us today!!!</p>
                             <Button variant="contained" color="primary">
                                 Sign Up
                             </Button>

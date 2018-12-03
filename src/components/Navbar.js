@@ -16,7 +16,9 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import "../../utils/navbar.css";
+import InputBase from "@material-ui/core/InputBase";
+import { Link } from "react-router-dom";
+import "../utils/navbar.css";
 
 export default class Navbar extends Component {
   constructor(props) {
@@ -40,12 +42,15 @@ export default class Navbar extends Component {
             <Grid item xs={1} />
             <Grid item xs={10}>
               <Toolbar>
+                <Link to="/">
                 <Button className="page-button" color="inherit">
                   <IconButton color="inherit">
                     <HomeIcon />
                   </IconButton>
                   Home
                 </Button>
+                </Link>
+                <Link to="/">
                 <Button className="page-button" color="inherit">
                   <IconButton color="inherit">
                     <Badge badgeContent={1} color="primary">
@@ -54,6 +59,8 @@ export default class Navbar extends Component {
                   </IconButton>
                   Notifications
                 </Button>
+                </Link>
+                <Link to="/">
                 <Button className="page-button" color="inherit">
                   <IconButton color="inherit">
                     <Badge invisible="false" badgeContent={4} color="secondary">
@@ -62,22 +69,21 @@ export default class Navbar extends Component {
                   </IconButton>
                   Messages
                 </Button>
-
+                </Link>
                 <div className="flexgrow" />
 
-                <TextField
+         <TextField
                   className="search"
                   placeholder="Search..."
                   InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon />
-                      </InputAdornment>
-                    )
-                  }}
+                  startAdornment: (
+        <InputAdornment position="start">
+       <SearchIcon />
+      </InputAdornment>
+ )
+ }}
                 />
-
-                <Avatar src="https://img.icons8.com/metro/1600/github.png" />
+                <Link to="/user"><Avatar src="https://img.icons8.com/metro/1600/github.png" /></Link>
 
                 <Button
                   style={{

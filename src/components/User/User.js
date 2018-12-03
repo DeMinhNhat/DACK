@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Sticky from "react-sticky-el";
+import Profile from "../Home/Profile";
 import Navbar from "../Navbar";
-import Profile from "./Profile";
-import Posts from "./Posts";
+import Tabs from "./Tabs";
 import "../../utils/home.css";
+import "../../utils/tabs.css";
 
-export default class Home extends Component {
+export default class User extends Component {
   render() {
     return (
       <div>
@@ -22,11 +23,11 @@ export default class Home extends Component {
             style={{ justifyContent: "center" }}
             className="grid"
             item
-            xs={6}
+            xs={7}
           >
-          <Posts/>
+          <Tabs/>
           </Grid>
-          <Grid item xs={2} />
+          <Grid item xs={1} />
         </Grid>
       </div>
     );

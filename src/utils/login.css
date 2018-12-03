@@ -1,7 +1,8 @@
 .leftBar {
     background: #1da1f2;
-    height: 90vh;
+    height: 95vh;
     position: relative;
+    /*height: 100% !important;*/
 }
 
 .contentLeft {

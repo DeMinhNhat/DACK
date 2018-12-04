@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
 import { Link } from "react-router-dom";
+import SignUp from "./SignUp"
 
 import "../../utils/login.css";
 
@@ -31,8 +33,17 @@ class Login extends Component {
     this.state = { user: { userName: "clone", password: "1" } };
   }
 
+  onOpenPost = () => {
+    this.setState({ open: true });
+  };
+
+  onClosePost = () => {
+    this.setState({ open: false });
+  };
+
   render() {
     return (
+      <div>
       <Grid container spacing={24}>
         <Grid item xs={12} sm={6}>
           <div className="leftBar">
@@ -80,15 +91,23 @@ class Login extends Component {
             </div>
             <div className="clockSignUp">
               <p style={{ marginLeft: "50px" }}>Join us today!!!</p>
-              <Link to="/signup">
-                <Button className="sign-up" variant="contained" color="primary">
+                <Button onClick={this.onOpenPost} className="sign-up" variant="contained" color="primary">
                   Sign Up
                 </Button>
-              </Link>
             </div>
           </div>
         </Grid>
       </Grid>
+
+<Dialog
+            open={this.state.open}
+            onClose={this.onClosePost}
+            aria-labelledby="form-dialog-title"
+          >
+          <SignUp/>
+          </Dialog>
+
+      </div>
     );
   }
 }

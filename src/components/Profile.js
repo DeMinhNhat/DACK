@@ -60,26 +60,34 @@ export default class Profile extends Component {
               {this.state.user.tweetNum}
             </Avatar>
           </ListItem>
-          <ListItem className="profile-item" button>
-            <ListItemText
-              className="profile-item"
-              primary="Followers"
-              style={{ flex: 1 }}
-            />
-            <Avatar className="profile-num-avatar profile-item">
-              {this.state.user.followerNum}
-            </Avatar>
-          </ListItem>
-          <ListItem className="profile-item" button>
-            <ListItemText
-              className="profile-info"
-              primary="Following"
-              style={{ flex: 1 }}
-            />
-            <Avatar className="profile-num-avatar profile-item">
-              {this.state.user.followingNum}
-            </Avatar>
-          </ListItem>
+
+          <Link to='followers' className="linkFollowers">
+            <ListItem className="profile-item" button>
+              <ListItemText
+                className="profile-item"
+                primary="Followers"
+                style={{ flex: 1 }}
+              />
+
+              <Avatar className="profile-num-avatar profile-item">
+                {this.state.user.followerNum}
+              </Avatar>
+
+            </ListItem>
+          </Link>
+
+          <Link to='following' className="linkFollowing">
+            <ListItem className="profile-item" button>
+              <ListItemText
+                className="profile-info"
+                primary="Following"
+                style={{ flex: 1 }}
+              />
+              <Avatar className="profile-num-avatar profile-item">
+                {this.state.user.followingNum}
+              </Avatar>
+            </ListItem>
+          </Link>
         </CardContent>
       </Card>
     );

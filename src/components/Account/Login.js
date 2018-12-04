@@ -80,10 +80,11 @@ class Login extends Component {
             </div>
             <div className="clockSignUp">
               <p style={{ marginLeft: "50px" }}>Join us today!!!</p>
-
-              <Button className="sign-up" variant="contained" color="primary">
-                Sign Up
-              </Button>
+              <Link to="/signup">
+                <Button className="sign-up" variant="contained" color="primary">
+                  Sign Up
+                </Button>
+              </Link>
             </div>
           </div>
         </Grid>

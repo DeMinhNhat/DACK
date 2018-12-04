@@ -10,7 +10,7 @@ class SignUp extends Component{
 
     render() {
         return (
-            <div id="login-box">
+            <div id="signup-box">
                 <div class="left">
                     <h1>Sign up</h1>
 

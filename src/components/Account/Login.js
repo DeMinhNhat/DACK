@@ -28,7 +28,7 @@ const ContentLeft = () => {
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { user: { userName: "clone", password: "1" } };
   }
 
   render() {
@@ -63,7 +63,11 @@ class Login extends Component {
                     <Link to="/login"> forgot password?</Link>
                   </div>
                   <div className="inline3">
-                    <Button variant="outlined" color="primary">
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => this.props.onLogIn(this.state.user)}
+                    >
                       Log In
                     </Button>
                   </div>
@@ -75,7 +79,7 @@ class Login extends Component {
               <h2>See what’s happening in the world right now </h2>
             </div>
             <div className="clockSignUp">
-              <p style={{marginLeft:"50px"}}>Join us today!!!</p>
+              <p style={{ marginLeft: "50px" }}>Join us today!!!</p>
 
               <Button className="sign-up" variant="contained" color="primary">
                 Sign Up

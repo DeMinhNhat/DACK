@@ -6,9 +6,9 @@
     background: #FFF;
     border-radius: 2px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  }
-  
-  #signup-box .left {
+}
+
+#signup-box .left {
     position: absolute;
     top: 0;
     left: 0;
@@ -16,16 +16,16 @@
     padding: 40px;
     width: 300px;
     height: 400px;
-  }
-  
-  #signup-box h1 {
+}
+
+#signup-box h1 {
     margin: 0 0 20px 0;
     font-weight: 300;
     font-size: 28px;
-  }
-  
-  #signup-box input[type="text"],
-  #signup-box input[type="password"] {
+}
+
+#signup-box input[type="text"],
+#signup-box input[type="password"] {
     display: block;
     box-sizing: border-box;
     margin-bottom: 20px;
@@ -38,16 +38,16 @@
     font-weight: 400;
     font-size: 15px;
     transition: 0.2s ease;
-  }
-  
-  #signup-box input[type="text"]:focus,
-  #signup-box input[type="password"]:focus {
+}
+
+#signup-box input[type="text"]:focus,
+#signup-box input[type="password"]:focus {
     border-bottom: 2px solid #16a085;
     color: #16a085;
     transition: 0.2s ease;
-  }
-  
-  #signup-box input[type="submit"] {
+}
+
+#signup-box input[type="submit"] {
     margin-top: 28px;
     width: 120px;
     height: 32px;
@@ -60,22 +60,22 @@
     text-transform: uppercase;
     transition: 0.1s ease;
     cursor: pointer;
-  }
-  
-  #signup-box input[type="submit"]:hover,
-  #signup-box input[type="submit"]:focus {
+}
+
+#signup-box input[type="submit"]:hover,
+#signup-box input[type="submit"]:focus {
     opacity: 0.8;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     transition: 0.1s ease;
-  }
-  
-  #signup-box input[type="submit"]:active {
+}
+
+#signup-box input[type="submit"]:active {
     opacity: 1;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     transition: 0.1s ease;
-  }
-  
-  #signup-box .or {
+}
+
+#signup-box .or {
     position: absolute;
     top: 180px;
     left: 280px;
@@ -86,9 +86,9 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     line-height: 40px;
     text-align: center;
-  }
-  
-  #signup-box .right {
+}
+
+#signup-box .right {
     position: absolute;
     top: 0;
     right: 0;
@@ -100,17 +100,17 @@
     background-size: cover;
     background-position: center;
     border-radius: 0 2px 2px 0;
-  }
-  
-  #signup-box .right .loginwith {
+}
+
+#signup-box .right .loginwith {
     display: block;
     margin-bottom: 40px;
     font-size: 28px;
     color: #696969;
     text-align: center;
-  }
-  
-  #signup-box button.social-signin {
+}
+
+#signup-box button.social-signin {
     margin-bottom: 20px;
     width: 220px;
     height: 36px;
@@ -121,27 +121,27 @@
     font-weight: 500;
     transition: 0.2s ease;
     cursor: pointer;
-  }
-  
-  #signup-box button.social-signin:hover,
-  button.social-signin:focus {
+}
+
+#signup-box button.social-signin:hover,
+button.social-signin:focus {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     transition: 0.2s ease;
-  }
-  
-  #signup-box button.social-signin:active {
+}
+
+#signup-box button.social-signin:active {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     transition: 0.2s ease;
-  }
-  
-  #signup-box button.social-signin.facebook {
+}
+
+#signup-box button.social-signin.facebook {
     background: #32508E;
-  }
-  
-  #signup-box button.social-signin.twitter {
+}
+
+#signup-box button.social-signin.twitter {
     background: #55ACEE;
-  }
-  
-  #signup-box button.social-signin.google {
+}
+
+#signup-box button.social-signin.google {
     background: #DD4B39;
-  }
+}

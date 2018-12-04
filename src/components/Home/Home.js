@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Sticky from "react-sticky-el";
 import Navbar from "../Navbar";
-import Profile from "./Profile";
+import Profile from "../Profile";
 import Posts from "./Posts";
+
 import "../../utils/home.css";
 
 export default class Home extends Component {
@@ -24,7 +25,7 @@ export default class Home extends Component {
             item
             xs={6}
           >
-          <Posts/>
+            <Posts />
           </Grid>
           <Grid item xs={2} />
         </Grid>

@@ -7,6 +7,7 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import InputBase from "@material-ui/core/InputBase";
+
 import "../../utils/posts.css";
 
 export default class Post extends Component {
@@ -44,8 +45,11 @@ export default class Post extends Component {
           title={
             <div>
               <div className="tlp-username">{this.props.user}</div>
-              <p className="tlp-time"> <i class="far fa-clock"></i> {this.props.time} </p>
-              </div>
+              <p className="tlp-time">
+                {" "}
+                <i class="far fa-clock" /> {this.props.time}{" "}
+              </p>
+            </div>
           }
         />
         <CardContent className="tlp-card-content">
@@ -53,16 +57,29 @@ export default class Post extends Component {
         </CardContent>
 
         <CardActions disableActionSpacing className="tlp-card-action">
-
-          <div className="tlp-action-field">
-            <IconButton
-              disableRipple="true"
-              disableTouchRipple="true"
-              className="tlp-action-icon"
-              onClick={this.toggleLike}
-            /><i class="fas fa-thumbs-up"></i>
-            &nbsp;{this.props.likeNum}
-          </div>
+          {this.props.liked ? (
+            <div className="tlp-action-field" style={{ color: "#DB969A" }}>
+              <IconButton
+                disableRipple="true"
+                disableTouchRipple="true"
+                className="tlp-action-icon"
+                onClick={this.toggleLike}
+              />
+              <i class="fas fa-thumbs-up" />
+              &nbsp;{this.props.likeNum}
+            </div>
+          ) : (
+            <div className="tlp-action-field" style={{ color: "#292D3E" }}>
+              <IconButton
+                disableRipple="true"
+                disableTouchRipple="true"
+                className="tlp-action-icon"
+                onClick={this.toggleLike}
+              />
+              <i class="fas fa-thumbs-up" />
+              &nbsp;{this.props.likeNum}
+            </div>
+          )}
 
           <div className="tlp-action-field">
             <IconButton
@@ -70,7 +87,8 @@ export default class Post extends Component {
               disableTouchRipple="true"
               className="tlp-action-icon"
               onClick={this.toggleLove}
-            /><i class="fas fa-heart"></i>
+            />
+            <i class="fas fa-heart" />
             &nbsp;{this.props.loveNum}
           </div>
 
@@ -80,7 +98,8 @@ export default class Post extends Component {
               disableTouchRipple="true"
               className="tlp-action-icon"
               onClick={this.toggleHaha}
-            /><i class="far fa-grin-tears"></i>
+            />
+            <i class="far fa-grin-tears" />
             &nbsp;{this.props.hahaNum}
           </div>
 
@@ -90,7 +109,8 @@ export default class Post extends Component {
               disableTouchRipple="true"
               className="tlp-action-icon"
               onClick={this.onShare}
-            /><i class="fas fa-retweet"></i>
+            />
+            <i class="fas fa-retweet" />
             &nbsp;{this.props.shareNum}
           </div>
 
@@ -100,10 +120,10 @@ export default class Post extends Component {
               disableTouchRipple="true"
               className="tlp-action-icon"
               onClick={this.onComment}
-            /><i class="far fa-comments"></i>
+            />
+            <i class="far fa-comments" />
             &nbsp;{this.props.commentNum}
           </div>
-
         </CardActions>
 
         <CardActions disableActionSpacing className="tlp-card-action-comment">

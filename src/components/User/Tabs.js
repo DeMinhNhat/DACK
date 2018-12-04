@@ -1,8 +1,8 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
 
 function TabContainer(props) {
   return (
@@ -15,7 +15,7 @@ function TabContainer(props) {
 export default class InfoTabs extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: 'Followers' };
+    this.state = { value: "Followers" };
   }
 
   handleChange = (event, value) => {
@@ -31,8 +31,12 @@ export default class InfoTabs extends React.Component {
             <Tab value="Following" label="Following" />
           </Tabs>
         </AppBar>
-        {this.state.value === 'Followers' && <TabContainer>Item Followers</TabContainer>}
-        {this.state.value === 'Following' && <TabContainer>Item Following</TabContainer>}
+        {this.state.value === "Followers" && (
+          <TabContainer>Item Followers</TabContainer>
+        )}
+        {this.state.value === "Following" && (
+          <TabContainer>Item Following</TabContainer>
+        )}
       </div>
     );
   }

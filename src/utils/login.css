@@ -2,7 +2,6 @@
     background: #1da1f2;
     height: 95vh;
     position: relative;
-    /*height: 100% !important;*/
 }
 
 .contentLeft {
@@ -43,7 +42,14 @@
 }
 
 .formLogin .inline3 button {
-    border-radius: 50%;
+    -moz-border-radius: 23px;
+    -webkit-border-radius: 23px;
+    border-radius: 23px;
+    display: inline-block;
+    cursor: pointer;
+    padding: 13px 20px;
+    font-size: 12px;
+    text-decoration: none;
 }
 
 .rightLogin {
@@ -69,15 +75,26 @@
     left: 15%;
 }
 
-.rightLogin .fa-twitter{
+.rightLogin .fa-twitter {
     font-size: 55px;
     color: #1da1f2;
 }
 
-.blockContent h1{
+.blockContent h1 {
     font-size: 27px;
 }
 
-.leftBar i{
+.leftBar i {
     font-size: 22px;
+}
+
+button.sign-up {
+    -moz-border-radius: 23px;
+    -webkit-border-radius: 23px;
+    border-radius: 23px;
+    display: inline-block;
+    cursor: pointer;
+    padding: 13px 20px;
+    font-size: 12px;
+    text-decoration: none;
 }

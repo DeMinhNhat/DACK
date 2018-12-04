@@ -5,7 +5,11 @@ import Avatar from "@material-ui/core/Avatar";
 import CardContent from "@material-ui/core/CardContent";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import "../../utils/profile.css";
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
+
+import "../utils/profile.css";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -14,9 +18,10 @@ export default class Profile extends Component {
       user: {
         avatar: "https://img.icons8.com/metro/1600/github.png",
         name: "Tokama",
+        about: "I am a professional, hehe",
         tweetNum: 3,
         followingNum: 7,
-        followerNum: 5,
+        followerNum: 5
       }
     };
   }
@@ -27,10 +32,23 @@ export default class Profile extends Component {
         <CardHeader
           className="profile-card-header"
           avatar={
-            <Avatar src={this.state.user.avatar} className="profile-avatar" />
+            <Avatar
+              component={Link}
+              to={`/user`}
+              src={this.state.user.avatar}
+              className="profile-avatar"
+            />
           }
           title={<div className="profile-name">{this.state.user.name}</div>}
+          subheader={
+            <div className="profile-about">{this.state.user.about}</div>
+          }
         />
+        <CardActions>
+          <Button size="small" sytle={{ float: "right" }}>
+            Learn More
+          </Button>
+        </CardActions>
         <CardContent>
           <ListItem className="profile-item" button>
             <ListItemText
@@ -54,7 +72,7 @@ export default class Profile extends Component {
           </ListItem>
           <ListItem className="profile-item" button>
             <ListItemText
-              className="profile-item"
+              className="profile-info"
               primary="Following"
               style={{ flex: 1 }}
             />

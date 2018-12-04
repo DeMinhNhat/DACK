@@ -16,8 +16,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import InputBase from "@material-ui/core/InputBase";
 import { Link } from "react-router-dom";
+
 import "../utils/navbar.css";
 
 export default class Navbar extends Component {
@@ -42,26 +42,41 @@ export default class Navbar extends Component {
             <Grid item xs={1} />
             <Grid item xs={10}>
               <Toolbar>
-                <Link to="/">
-                <Button className="page-button" color="inherit">
+                <Button
+                  component={Link}
+                  to={`/`}
+                  className="page-button"
+                  color="inherit"
+                >
                   <IconButton color="inherit">
                     <HomeIcon />
                   </IconButton>
                   Home
                 </Button>
-                </Link>
-                <Link to="/">
-                <Button className="page-button" color="inherit">
-                  <IconButton color="inherit">
-                    <Badge badgeContent={1} color="primary">
+
+                <Button
+                  component={Link}
+                  to={`/`}
+                  className="page-button"
+                  color="inherit"
+                >
+                  <IconButton
+                    color="inherit"
+                    style={{ backgroundColor: "#1DA1F2 !important" }}
+                  >
+                    <Badge badgeContent={10}>
                       <NotificationsIcon />
                     </Badge>
                   </IconButton>
                   Notifications
                 </Button>
-                </Link>
-                <Link to="/">
-                <Button className="page-button" color="inherit">
+
+                <Button
+                  component={Link}
+                  to={`/`}
+                  className="page-button"
+                  color="inherit"
+                >
                   <IconButton color="inherit">
                     <Badge invisible="false" badgeContent={4} color="secondary">
                       <MailIcon />
@@ -69,31 +84,30 @@ export default class Navbar extends Component {
                   </IconButton>
                   Messages
                 </Button>
-                </Link>
+
                 <div className="flexgrow" />
 
-         <TextField
+                <TextField
                   className="search"
                   placeholder="Search..."
                   InputProps={{
-                  startAdornment: (
-        <InputAdornment position="start">
-       <SearchIcon />
-      </InputAdornment>
- )
- }}
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon />
+                      </InputAdornment>
+                    )
+                  }}
                 />
-                <Link to="/user"><Avatar src="https://img.icons8.com/metro/1600/github.png" /></Link>
+                <Link to="/user">
+                  <Avatar src="https://img.icons8.com/metro/1600/github.png" />
+                </Link>
 
                 <Button
-                  style={{
-                    height: "35px",
-                    marginLeft: "5px",
-                    fontSize: "16px",
-                    color: "white",
-                    backgroundColor: "#3A3A3A"
-                  }}
                   onClick={this.onOpenPost}
+                  style={{ fontWeight: "bold" }}
+                  className="chirp"
+                  variant="contained"
+                  color="primary"
                 >
                   Chirp
                 </Button>
@@ -127,7 +141,12 @@ export default class Navbar extends Component {
               />
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.onPost} color="primary">
+              <Button
+                onClick={this.onPost}
+                className="chirp"
+                variant="contained"
+                color="primary"
+              >
                 Chirp
               </Button>
             </DialogActions>

@@ -50,12 +50,12 @@
 
 .tlp-action-field {
     margin-right: 16px;
-    color:#292D3E;
+    color: #292D3E;
 }
 
 .tlp-action-field:hover {
     margin-right: 16px;
-    color:#DB969A;
+    color: #DB969A;
 }
 
 .tlp-action-icon {
@@ -79,6 +79,6 @@
     font-weight: bold;
 }
 
-.tlp-action-comment{
-  height: 10px;
+.tlp-action-comment {
+    height: 10px;
 }

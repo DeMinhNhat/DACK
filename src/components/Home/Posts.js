@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Post from "./Post";
+
 import "../../utils/posts.css";
 
 export default class Posts extends Component {
@@ -18,7 +19,7 @@ export default class Posts extends Component {
           hahaNum: 7,
           shareNum: 2,
           commentNum: 4,
-          liked: false,
+          liked: true,
           loved: false,
           hahad: false,
           shared: false,

@@ -16,6 +16,10 @@
     font-size: 24px;
 }
 
+.profile-about {
+    font-size: 16px;
+}
+
 .profile-avatar {
     width: 50px !important;
     height: 50px !important;
@@ -25,7 +29,11 @@
     font-size: 16px !important;
 }
 
+.profile-info {
+    color: #DB969A !important;
+}
+
 .profile-num-avatar {
     margin: 1px;
-    background-color:#292D3E!important;
+    background-color: #4AB3F4 !important;
 }

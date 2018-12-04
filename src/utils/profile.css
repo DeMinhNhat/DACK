@@ -37,3 +37,11 @@
     margin: 1px;
     background-color: #4AB3F4 !important;
 }
+
+.linkFollowers{
+    text-decoration: none;
+}
+
+.linkFollowing{
+    text-decoration: none;
+}

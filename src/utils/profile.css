@@ -7,6 +7,30 @@
     padding: 20px !important;
 }
 
+button.edit-profile-button{
+  -moz-border-radius: 23px;
+    -webkit-border-radius: 23px;
+    border-radius: 23px;
+    display: inline-block;
+    cursor: pointer;
+    padding: 12px 18px;
+    font-size: 12px;
+    text-decoration: none;
+  margin-left: 160px;
+}
+
+button.edit{
+  -moz-border-radius: 23px;
+    -webkit-border-radius: 23px;
+    border-radius: 23px;
+    display: inline-block;
+    cursor: pointer;
+    padding: 2px 3px;
+    font-size: 8px;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
 .profile-card-title {
     padding-top: 0 !important;
     padding-bottom: 8px;
@@ -14,6 +38,7 @@
 
 .profile-name {
     font-size: 24px;
+    float: left;
 }
 
 .profile-about {

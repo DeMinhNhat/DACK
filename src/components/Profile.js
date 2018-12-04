@@ -39,16 +39,19 @@ export default class Profile extends Component {
               className="profile-avatar"
             />
           }
-          title={<div className="profile-name">{this.state.user.name}</div>}
+          title={
+<div>
+            <div className="profile-name">
+          {this.state.user.name}
+          </div>
+          <Button variant="outlined" color="primary" size="small" className="edit">
+            Edit
+          </Button>
+          </div>}
           subheader={
             <div className="profile-about">{this.state.user.about}</div>
           }
         />
-        <CardActions>
-          <Button size="small" sytle={{ float: "right" }}>
-            Learn More
-          </Button>
-        </CardActions>
         <CardContent>
           <ListItem className="profile-item" button>
             <ListItemText

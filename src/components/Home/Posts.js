@@ -86,6 +86,6 @@ export default class Posts extends Component {
         />
       );
     });
-    return <div style={{ marginTop: "64px" }}>{elements}</div>;
+    return <div style={{ marginTop: "40px" }}>{elements}</div>;
   }
 }

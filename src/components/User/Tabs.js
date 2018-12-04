@@ -3,6 +3,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
+import Following from "./Following";
+import Followers from "./Followers";
 
 function TabContainer(props) {
   return (
@@ -25,17 +27,21 @@ export default class InfoTabs extends React.Component {
   render() {
     return (
       <div>
-        <AppBar color="inherit" position="static" style={{ marginTop: "64px" }}>
+        <AppBar color="inherit" position="static" style={{ marginTop: "40px" }}>
           <Tabs value={this.state.value} onChange={this.handleChange}>
             <Tab value="Followers" label="Followers" />
             <Tab value="Following" label="Following" />
           </Tabs>
         </AppBar>
         {this.state.value === "Followers" && (
-          <TabContainer>Item Followers</TabContainer>
+          <TabContainer>
+            <Followers />
+          </TabContainer>
         )}
         {this.state.value === "Following" && (
-          <TabContainer>Item Following</TabContainer>
+          <TabContainer>
+            <Following />
+          </TabContainer>
         )}
       </div>
     );

@@ -31,7 +31,7 @@ export const onLogIn = user => {
     //     .catch(error => {
     //         dispatch(logInError(error));
     //     });
-    logInSuccess(user);
+    dispatch(logInSuccess(user));
   };
 };
 //

@@ -10,7 +10,7 @@ const indexRoutes = [
   { path: "/following", components: Following },
   { path: "/followers", components: Followers },
   { path: "/login", components: Login },
-  { path: "/LoginContainer", components: LoginContainer },
+  { path: "/loginContainer", components: LoginContainer },
   { path: "/signup", components: SignUp },
   { path: "/user", components: User },
   { path: "/home", components: Home },

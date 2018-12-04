@@ -12,6 +12,7 @@ const configureStore = () => {
     // persistedState,
     applyMiddleware.apply(undefined, reduxMiddlewares)
   );
+
   return store;
 };
 

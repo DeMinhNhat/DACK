@@ -72,7 +72,7 @@
 .rightLogin .clockSignUp {
     position: absolute;
     top: 50%;
-    left: 15%;
+    left: 30%;
 }
 
 .rightLogin .fa-twitter {
@@ -94,7 +94,12 @@ button.sign-up {
     border-radius: 23px;
     display: inline-block;
     cursor: pointer;
-    padding: 13px 20px;
+    padding: 13px 80px;
     font-size: 12px;
     text-decoration: none;
+    background-color: #1da1f2;
+}
+
+button.sign-up:hover {
+    background-color: #1da1f2;
 }

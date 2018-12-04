@@ -75,7 +75,7 @@ class Login extends Component {
               <h2>See what’s happening in the world right now </h2>
             </div>
             <div className="clockSignUp">
-              <p style={{ float: "left" }}>Join us today!!!&nbsp;&nbsp;</p>
+              <p style={{marginLeft:"50px"}}>Join us today!!!</p>
 
               <Button className="sign-up" variant="contained" color="primary">
                 Sign Up

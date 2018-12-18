@@ -5,30 +5,29 @@ import Avatar from "@material-ui/core/Avatar";
 import CardContent from "@material-ui/core/CardContent";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
 import "../utils/profile.css";
 
 export default class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {
-        avatar: "https://img.icons8.com/metro/1600/github.png",
-        name: "Tokama",
-        about: "I am a professional, hehe",
-        tweetNum: 3,
-        followingNum: 7,
-        followerNum: 5
-      }
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: {
+                avatar: "https://img.icons8.com/metro/1600/github.png",
+                name: "Tokama",
+                about: "I am a professional, hehe",
+                tweetNum: 3,
+                followingNum: 7,
+                followerNum: 5
+            }
+        };
+    }
 
-  render() {
-    return (
-      <Card className="profile-card">
+    render() {
+        return (
+            <Card className="profile-card">
         <CardHeader
           className="profile-card-header"
           avatar={
@@ -93,6 +92,6 @@ export default class Profile extends Component {
           </Link>
         </CardContent>
       </Card>
-    );
-  }
+        );
+    }
 }

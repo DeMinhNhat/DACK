@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Sticky from "react-sticky-el";
 import Profile from "../Profile";
-import Navbar from "../Navbar";
+import NavbarContainer from "../../containers/NavbarContainer";
 import Tabs from "./Tabs";
 
 import "../../utils/home.css";
@@ -12,7 +12,7 @@ export default class User extends Component {
   render() {
     return (
       <div>
-        <Navbar />
+        <NavbarContainer />
         <Grid container spacing={12}>
           <Grid item xs={1} />
           <Grid className="grid" item xs={3}>

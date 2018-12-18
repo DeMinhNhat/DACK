@@ -9,8 +9,8 @@ import SignUp from "./SignUp"
 import "../../utils/login.css";
 
 const ContentLeft = () => {
-  return (
-    <div className="contentLeft">
+    return (
+        <div className="contentLeft">
       <div className="inline">
         <p>
           <i class="fas fa-search" /> <span>Follow your interests</span>.
@@ -24,26 +24,31 @@ const ContentLeft = () => {
         </p>
       </div>
     </div>
-  );
+    );
 };
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { user: { userName: "clone", password: "1" } };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: {
+                public_key: "GA6GMNHXZ332WAYNW3Q2AJ7YKE5WFYCTOAFJLNEFARHKWTMT7HQR2ZIK",
+                private_key: "SC3PILQTZKA7EYDVUV5VV2LEV4TI4O7DVLR5F7JG3JVENBEBHMLUXMP2"
+            }
+        };
+    }
 
-  onOpenPost = () => {
-    this.setState({ open: true });
-  };
+    onOpenPost = () => {
+        this.setState({ open: true });
+    };
 
-  onClosePost = () => {
-    this.setState({ open: false });
-  };
+    onClosePost = () => {
+        this.setState({ open: false });
+    };
 
-  render() {
-    return (
-      <div>
+    render() {
+        return (
+            <div>
       <Grid container spacing={24}>
         <Grid item xs={12} sm={6}>
           <div className="leftBar">
@@ -91,7 +96,7 @@ class Login extends Component {
             </div>
             <div className="clockSignUp">
               <p style={{ marginLeft: "50px" }}>Join us today!!!</p>
-                <Button onClick={this.onOpenPost} className="sign-up" variant="contained" color="primary">
+                <Button onClick={() => this.props.onSignUp()} className="sign-up" variant="contained" color="primary">
                   Sign Up
                 </Button>
             </div>
@@ -108,8 +113,8 @@ class Login extends Component {
           </Dialog>
 
       </div>
-    );
-  }
+        );
+    }
 }
 
 export default Login;

@@ -142,7 +142,7 @@ export default class Navbar extends Component {
             </DialogContent>
             <DialogActions>
               <Button
-                onClick={this.onPost}
+                onClick={()=>this.props.onPost("this is a test")}
                 className="chirp"
                 variant="contained"
                 color="primary"

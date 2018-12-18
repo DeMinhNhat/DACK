@@ -2,14 +2,16 @@ import axios from "axios";
 import * as types from "../constants";
 import * as transaction from "../lib/transaction";
 
-export const postSuccess = () => ({ type: types.POST_SUCCESS });
+export const followingSuccess = () => ({
+    type: types.FOLLOWING_SUCCESS,
+});
 
-export const postError = errorMessage => ({
-    type: types.POST_ERROR,
+export const followingError = errorMessage => ({
+    type: types.FOLLOWING_ERROR,
     errorMessage
 });
 
-const encodePostTransaction = function(user, content, dispatch) {
+const encodeFollowingTransaction = function(user, publicKey, dispatch) {
     let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
     let txEncode = '0x';
     axios.get(req)
@@ -20,13 +22,12 @@ const encodePostTransaction = function(user, content, dispatch) {
                 each.tx.signature = each.tx.signature.toString('hex');
                 return each;
             })
-            var sequence = transaction.findSequenceAvailable(data, user.public_key);
+            let sequence = transaction.findSequenceAvailable(data, user.public_key);
             const tx = {
                 version: 1,
-                operation: "post",
+                operation: "following",
                 params: {
-                    content: Buffer.from(content, 'base64'),
-                    keys: []
+                    address: publicKey
                 },
                 account: user.public_key,
                 sequence: sequence,
@@ -38,35 +39,17 @@ const encodePostTransaction = function(user, content, dispatch) {
             return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
         })
         .then((res) => {
-            dispatch(postSuccess());
+            dispatch(followingSuccess());
         })
         .catch((err) => {
-            dispatch(postError(err));
+            dispatch(followingError(err));
         });
 }
 
-export const onPost = (content) => {
+export const onFollowing = (publicKey) => {
     return (dispatch, getState) => {
         const { public_key, private_key } = getState().auth;
         const user = { public_key, private_key };
-        encodePostTransaction(user, content, dispatch);
+        encodeFollowingTransaction(user, publicKey, dispatch);
     };
 };
-
-// export const retrievePosts = () => {
-//     let num = 4;
-//     let link = types.domain + num;
-//     axios.get(link)
-//         .then((res) => {
-//             if (res.data.error === undefined) {
-//                 const raw = res.data.result.block.data.txs[0];
-//                 const buf = Buffer.from(raw, 'base64');
-//                 const data = transaction.decode(buf);
-//                 if (data.operation === "payment")
-//                     console.log(data);
-//             }
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
-// };

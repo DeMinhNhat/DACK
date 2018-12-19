@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import  { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -52,34 +52,40 @@ class Login extends Component {
         this.setState({ open: false });
     };
 
-    loginConnectServer = () =>{
-      return true;
+    loginConnectServer = () => {
+        return true;
     }
 
     renderRedirect = () => {
-      if (this.state.redirect) {
-        return <Redirect to='/home' />
-      }
+        if (this.state.redirect) {
+            return <Redirect to='/home' />
+        }
     }
 
     handleLogin = (event) => {
-      event.preventDefault();
-      this.setState({
-        user: {
-            username: event.target.username.value,
-            password: event.target.password.value,
-        }
-      })
-      this.props.onLogIn(this.state.user.username,this.state.user.password);      
+        event.preventDefault();
+        this.setState({
+            user: {
+                username: event.target.username.value,
+                password: event.target.password.value,
+            }
+        })
+        this.props.onLogIn(this.state.user.username, this.state.user.password);
+        this.setState({
+            user: {
+                username: '',
+                password: '',
+            }
+        })
     }
 
-  render() {
+    render() {
 
-    if (this.props.auth.isUserSignedIn) 
-      return <Redirect to='/home' />;
+        if (this.props.auth.isUserSignedIn)
+            return <Redirect to='/home' />;
 
-    return (
-      <div>
+        return (
+            <div>
         <Grid container spacing={24}>
           <Grid item xs={12} sm={6}>
             <div className="leftBar">
@@ -144,7 +150,7 @@ class Login extends Component {
         </Dialog>
 
       </div>
-    );
+        );
     }
 }
 

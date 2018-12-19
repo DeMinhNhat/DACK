@@ -31,7 +31,7 @@ const ContentLeft = () => {
 
 // public_key: "GA6GMNHXZ332WAYNW3Q2AJ7YKE5WFYCTOAFJLNEFARHKWTMT7HQR2ZIK",
 // private_key: "SC3PILQTZKA7EYDVUV5VV2LEV4TI4O7DVLR5F7JG3JVENBEBHMLUXMP2",
-
+// test
 class Login extends Component {
     constructor(props) {
         super(props);

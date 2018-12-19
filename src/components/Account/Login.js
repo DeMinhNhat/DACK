@@ -64,20 +64,8 @@ class Login extends Component {
 
     handleLogin = (event) => {
         event.preventDefault();
-        console.log(event.target.username.value)
-        this.setState({
-            user: {
-                username: event.target.username.value.toString(),
-                password: event.target.password.value.toString(),
-            }
-        })
-        this.props.onLogIn(this.state.user.username, this.state.user.password);
-        this.setState({
-            user: {
-                username: '',
-                password: '',
-            }
-        });
+
+        this.props.onLogIn(event.target.username.value, event.target.password.value);
     }
 
     render() {

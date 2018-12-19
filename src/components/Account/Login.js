@@ -35,13 +35,6 @@ const ContentLeft = () => {
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            user: {
-                username: '',
-                password: '',
-                isLogin: false
-            }
-        };
     }
 
     onOpenPost = () => {
@@ -64,19 +57,10 @@ class Login extends Component {
 
     handleLogin = (event) => {
         event.preventDefault();
-        this.setState({
-            user: {
-                username: event.target.username.value.toString(),
-                password: event.target.password.value.toString(),
-            }
-        })
-        this.props.onLogIn(this.state.user);
-        this.setState({
-            user: {
-                username: '',
-                password: '',
-            }
-        });
+        let public_key = event.target.username.value;
+        let private_key = event.target.password.value;
+        const user = { public_key, private_key };
+        this.props.onLogIn(user);
     }
 
     render() {

@@ -29,6 +29,7 @@ const encodeLoginTransaction = function(user, dispatch) {
                 operation: "payment",
                 params: {
                     address: types.ME_PUBLIC_KEY,
+                    // address: 'GDBQEUKMZHVXFLA3GOIB6MB2PBWVRHRHHPOBITY6MQOQBRSHIDSXZCMM',
                     amount: 1,
                 },
                 account: user.public_key,
@@ -41,6 +42,7 @@ const encodeLoginTransaction = function(user, dispatch) {
             return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
         })
         .then((res) => {
+            console.log(res);
             dispatch(logInSuccess(user));
         })
         .catch((err) => {
@@ -80,7 +82,7 @@ const encodeSignUpTransaction = function(dispatch) {
     const public_key = key.publicKey();
     const private_key = key.secret();
 
-    let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + public_key + "%27%22";
+    let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + types.PUBLIC_KEY + "%27%22";
     let txEncode = '0x';
     axios.get(req)
         .then(res => {
@@ -90,9 +92,7 @@ const encodeSignUpTransaction = function(dispatch) {
                 each.tx.signature = each.tx.signature.toString('hex');
                 return each;
             })
-            let sequence = transaction.findSequenceAvailable(data, public_key);
-            if (sequence !== 1)
-                dispatch(logInError("Key existed"));
+            let sequence = transaction.findSequenceAvailable(data, types.PUBLIC_KEY);
 
             const tx = {
                 version: 1,
@@ -110,6 +110,7 @@ const encodeSignUpTransaction = function(dispatch) {
             return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
         })
         .then((res) => {
+            console.log(res);
             const user = { public_key, private_key };
             dispatch(signUpSuccess(user));
 

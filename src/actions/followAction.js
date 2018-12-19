@@ -39,6 +39,7 @@ const encodeFollowingTransaction = function(user, publicKey, dispatch) {
             return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
         })
         .then((res) => {
+            console.log(res);
             dispatch(followingSuccess());
         })
         .catch((err) => {

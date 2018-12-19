@@ -17,7 +17,6 @@ export default class Followers extends Component {
         <ProfileCard data={val} check="Followers" />{" "}
       </Grid>
     ));
-    console.log(element);
     return (
       <Grid container spacing={5}>
         {element}

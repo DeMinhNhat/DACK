@@ -68,11 +68,9 @@ class Login extends Component {
         user: {
             username: event.target.username.value,
             password: event.target.password.value,
-            isLogin: this.loginConnectServer()
         }
       })
-      console.log(this.state.user.isLogin);
-      
+      this.props.onLogIn(this.state.user.username,this.state.user.password);      
     }
 
   render() {

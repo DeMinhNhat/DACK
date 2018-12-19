@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import  { Redirect } from 'react-router-dom'
+
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -27,13 +29,17 @@ const ContentLeft = () => {
     );
 };
 
+// public_key: "GA6GMNHXZ332WAYNW3Q2AJ7YKE5WFYCTOAFJLNEFARHKWTMT7HQR2ZIK",
+// private_key: "SC3PILQTZKA7EYDVUV5VV2LEV4TI4O7DVLR5F7JG3JVENBEBHMLUXMP2",
+
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             user: {
-                public_key: "GA6GMNHXZ332WAYNW3Q2AJ7YKE5WFYCTOAFJLNEFARHKWTMT7HQR2ZIK",
-                private_key: "SC3PILQTZKA7EYDVUV5VV2LEV4TI4O7DVLR5F7JG3JVENBEBHMLUXMP2"
+                username: '',
+                password: '',
+                isLogin: false
             }
         };
     }
@@ -46,74 +52,101 @@ class Login extends Component {
         this.setState({ open: false });
     };
 
-    render() {
-        return (
-            <div>
-      <Grid container spacing={24}>
-        <Grid item xs={12} sm={6}>
-          <div className="leftBar">
-            <ContentLeft />
-          </div>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <div className="rightLogin">
-            <div className="blockFromLogin">
-              <form>
-                <div className="formLogin">
-                  <div className="inline">
-                    <TextField
-                      id="standard-dense"
-                      label="username"
-                      margin="dense"
-                    />
-                  </div>
-                  <div className="inline2">
-                    <div>
+    loginConnectServer = () =>{
+      return true;
+    }
+
+    renderRedirect = () => {
+      if (this.state.redirect) {
+        return <Redirect to='/home' />
+      }
+    }
+
+    handleLogin = (event) => {
+      event.preventDefault();
+      this.setState({
+        user: {
+            username: event.target.username.value,
+            password: event.target.password.value,
+            isLogin: this.loginConnectServer()
+        }
+      })
+      console.log(this.state.user.isLogin);
+      
+    }
+
+  render() {
+
+    if (this.state.user.isLogin) 
+      return <Redirect to='/home' />;
+
+    return (
+      <div>
+        <Grid container spacing={24}>
+          <Grid item xs={12} sm={6}>
+            <div className="leftBar">
+              <ContentLeft />
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <div className="rightLogin">
+              <div className="blockFromLogin">
+                <form onSubmit = {this.handleLogin} >
+                  <div className="formLogin">
+                    <div className="inline">
                       <TextField
-                        id="standard-dense"
-                        label="Password"
-                        type="password"
-                        margin="normal"
+                        label="username"
+                        name="username"
+                        margin="dense"
                       />
                     </div>
-                    <Link to="/login"> forgot password?</Link>
-                  </div>
-                  <div className="inline3">
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      onClick={() => this.props.onLogIn(this.state.user)}
-                    >
-                      Log In
+                    <div className="inline2">
+                      <div>
+                        <TextField
+                          label="Password"
+                          type="password"
+                          name="password"
+                          margin="normal"
+                        />
+                      </div>
+                      <Link to="/login"> forgot password?</Link>
+                    </div>
+                    <div className="inline3">
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        type="submit"
+                      >
+                        Log In
                     </Button>
+                    </div>
                   </div>
-                </div>
-              </form>
-            </div>
-            <div className="blockContent">
-              <i class="fab fa-twitter" />
-              <h2>See what’s happening in the world right now </h2>
-            </div>
-            <div className="clockSignUp">
-              <p style={{ marginLeft: "50px" }}>Join us today!!!</p>
+                </form>
+              </div>
+              <div className="blockContent">
+                <i class="fab fa-twitter" />
+                <h2>See what’s happening in the world right now </h2>
+              </div>
+              <div className="clockSignUp">
+                <p style={{ marginLeft: "50px" }}>Join us today!!!</p>
                 <Button onClick={() => this.props.onSignUp()} className="sign-up" variant="contained" color="primary">
                   Sign Up
                 </Button>
+              </div>
             </div>
-          </div>
+          </Grid>
         </Grid>
-      </Grid>
 
-<Dialog
-            open={this.state.open}
-            onClose={this.onClosePost}
-            aria-labelledby="form-dialog-title"
-          >
-          <SignUp/>
-          </Dialog>
+        <Dialog
+          open={this.state.open}
+          onClose={this.onClosePost}
+          aria-labelledby="form-dialog-title"
+        >
+          <SignUp />
+        </Dialog>
 
       </div>
-        );
+    );
     }
 }
 

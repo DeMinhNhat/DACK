@@ -53,21 +53,34 @@ export const onPost = (content) => {
         encodePostTransaction(user, content, dispatch);
     };
 };
+//
+export const retrievePostSuccess = post => ({
+    type: types.RETRIEVE_POST_SUCCESS,
+    post: post
+});
 
-// export const retrievePosts = () => {
-//     let num = 4;
-//     let link = types.domain + num;
-//     axios.get(link)
-//         .then((res) => {
-//             if (res.data.error === undefined) {
-//                 const raw = res.data.result.block.data.txs[0];
-//                 const buf = Buffer.from(raw, 'base64');
-//                 const data = transaction.decode(buf);
-//                 if (data.operation === "payment")
-//                     console.log(data);
-//             }
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
-// };
+export const retrievePostError = errorMessage => ({
+    type: types.RETRIEVE_POST_ERROR,
+    errorMessage
+});
+
+export const retrievePost = num => {
+    return dispatch => {
+        let link = "https://komodo.forest.network/block?height=" + num;
+        axios.get(link)
+            .then((res) => {
+                if (res.data.error === undefined) {
+                    const raw = res.data.result.block.data.txs[0];
+                    const buf = Buffer.from(raw, 'base64');
+                    const post = transaction.decode(buf);
+                    if (post.operation === "post")
+                        dispatch(retrievePostSuccess(post));
+                    else
+                        dispatch(retrievePostError("this is not post operation"));
+                }
+            })
+            .catch(err => {
+                dispatch(retrievePostError(err));
+            });
+    };
+};

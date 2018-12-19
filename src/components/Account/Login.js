@@ -35,6 +35,7 @@ const ContentLeft = () => {
 class Login extends Component {
     constructor(props) {
         super(props);
+        this.state = { open: false };
     }
 
     onOpenPost = () => {

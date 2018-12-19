@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { Component } from "react";
 import { Router, Route, Switch } from "react-router";
 import { createBrowserHistory } from "history";
@@ -7,30 +6,23 @@ import indexRoutes from "../routes";
 var hist = createBrowserHistory();
 
 export default class App extends Component {
-    state = {
-        counter: 0,
-        timer: null,
-    };
+    // constructor(props) {
+    //     super(props);
+    //     this.state = { timer: null };
+    // }
 
-    componentDidMount() {
-        let timer = setInterval(this.tick, 1000);
-        this.setState({ timer });
-    }
+    // componentDidMount() {
+    //     let timer = setInterval(this.tick, 1000);
+    //     this.setState({ timer });
+    // }
 
-    componentWillUnmount() {
-        this.clearInterval(this.state.timer);
-    }
+    // componentWillUnmount() {
+    //     this.clearInterval(this.state.timer);
+    // }
 
-    tick() {
-        let req = "https://komodo.forest.network/block_results?height=2";
-        axios.get(req)
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
+    // tick() {
+    //     postAction.retrievePost(10);
+    // }
 
     render() {
         return (

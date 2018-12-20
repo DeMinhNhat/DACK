@@ -64,19 +64,35 @@ export const retrievePostError = errorMessage => ({
     errorMessage
 });
 
-export const retrievePost = num => {
-    return dispatch => {
-        let link = "https://komodo.forest.network/block?height=" + num;
+export const getHeight = maxHeight => ({
+    type: types.GET_HEIGHT,
+    maxHeight
+});
+
+export const retrievePost = () => {
+    return (dispatch, getState) => {
+        let maxHeight = getState().maxHeight;
+        let link = "https://komodo.forest.network/block?height=" + maxHeight;
+        console.log(link)
         axios.get(link)
             .then((res) => {
                 if (res.data.error === undefined) {
-                    const raw = res.data.result.block.data.txs[0];
-                    const buf = Buffer.from(raw, 'base64');
-                    const post = transaction.decode(buf);
-                    if (post.operation === "post")
-                        dispatch(retrievePostSuccess(post));
-                    else
-                        dispatch(retrievePostError("this is not post operation"));
+                    if (res.data.result.block.data.txs === null)
+                        dispatch(retrievePostError(`this block (${maxHeight}) has no operation`));
+                    else {
+                        const raw = res.data.result.block.data.txs[0];
+                        const buf = Buffer.from(raw, 'base64');
+                        const post = transaction.decode(buf);
+                        if (post.operation === "post") {
+                            dispatch(retrievePostSuccess(post));
+                        } else {
+                            dispatch(retrievePostError(`this block (${maxHeight}) is not post operation`));
+                        }
+                    }
+                    dispatch(getHeight(++maxHeight));
+                } else {
+                    dispatch(retrievePostError("problems with your maxHeight param"));
+                    dispatch(getHeight(1));
                 }
             })
             .catch(err => {

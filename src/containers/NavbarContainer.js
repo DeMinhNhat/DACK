@@ -1,8 +1,7 @@
-import { compose } from "redux";
 import { connect } from "react-redux";
 import Navbar from "../components/Navbar";
 import * as postAction from "../actions/postAction";
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({ auth: state.auth });
 
-export default compose(connect(mapStateToProps, { onPost: postAction.onPost }))(Navbar);
+export default connect(mapStateToProps, { onPost: postAction.onPost })(Navbar);

@@ -6,24 +6,6 @@ import indexRoutes from "../routes";
 var hist = createBrowserHistory();
 
 export default class App extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = { timer: null };
-    // }
-
-    // componentDidMount() {
-    //     let timer = setInterval(this.tick, 1000);
-    //     this.setState({ timer });
-    // }
-
-    // componentWillUnmount() {
-    //     this.clearInterval(this.state.timer);
-    // }
-
-    // tick() {
-    //     postAction.retrievePost(10);
-    // }
-
     render() {
         return (
             <Router history={hist}>

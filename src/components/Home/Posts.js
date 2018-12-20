@@ -36,7 +36,7 @@ export default class Posts extends Component {
     }
 
     componentWillUnmount() {
-        this.clearInterval(this.state.timer);
+        clearInterval(this.state.timer);
     }
 
     tick = () => {

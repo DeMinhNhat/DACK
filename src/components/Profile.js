@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import "../utils/profile.css";
 
 export default class Profile extends Component {
+<<<<<<< HEAD
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +29,25 @@ export default class Profile extends Component {
   render() {
     return (
       <Card className="profile-card">
+=======
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: {
+                avatar: "https://img.icons8.com/metro/1600/github.png",
+                name: "Tokama",
+                about: "I am a professional, hehe",
+                tweetNum: 3,
+                followingNum: 7,
+                followerNum: 5
+            }
+        };
+    }
+
+    render() {
+        return (
+            <Card className="profile-card">
+>>>>>>> parent of 59ccd9d... [1512602] save info of user
         <CardHeader
           className="profile-card-header"
           avatar={
@@ -39,6 +59,7 @@ export default class Profile extends Component {
             />
           }
           title={
+<<<<<<< HEAD
             <div>
               <div className="profile-name">{this.state.user.name}</div>
               <Button
@@ -52,6 +73,16 @@ export default class Profile extends Component {
               </Button>
             </div>
           }
+=======
+<div>
+            <div className="profile-name">
+          {this.state.user.name}
+          </div>
+          <Button variant="outlined" color="primary" size="small" className="edit">
+            Edit
+          </Button>
+          </div>}
+>>>>>>> parent of 59ccd9d... [1512602] save info of user
           subheader={
             <div className="profile-about">{this.state.user.about}</div>
           }

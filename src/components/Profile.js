@@ -8,6 +8,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 import { Link } from "react-router-dom";
+import { PIC } from "../constants";
 
 import "../utils/profile.css";
 
@@ -59,6 +60,7 @@ export default class Profile extends Component {
             />
           }
           title={
+<<<<<<< HEAD
             <div class="cardHeader-inline">
               <div className="profile-name inline1">
                 <TextField disabled={this.state.user.readOnly} defaultValue={this.state.user.name} />
@@ -76,6 +78,19 @@ export default class Profile extends Component {
                 </div>
               </div>
               <br class="clearBoth" />
+=======
+            <div>
+              <div className="profile-name">{this.state.user.name}</div>
+              <Button
+                variant="outlined"
+                color="primary"
+                size="small"
+                className="edit"
+                onClick={()=>this.props.onUpdatePic(PIC)}
+              >
+                Edit
+              </Button>
+>>>>>>> 1f49577e9f82d28e9b56ae22e777b940c0faca4d
             </div>
           }
           subheader={
@@ -96,7 +111,7 @@ export default class Profile extends Component {
             </Avatar>
           </ListItem>
 
-          <Link to='followers' className="linkFollowers">
+          <Link to="followers" className="linkFollowers">
             <ListItem className="profile-item" button>
               <ListItemText
                 className="profile-item"
@@ -107,11 +122,10 @@ export default class Profile extends Component {
               <Avatar className="profile-num-avatar profile-item">
                 {this.state.user.followerNum}
               </Avatar>
-
             </ListItem>
           </Link>
 
-          <Link to='following' className="linkFollowing">
+          <Link to="following" className="linkFollowing">
             <ListItem className="profile-item" button>
               <ListItemText
                 className="profile-info"

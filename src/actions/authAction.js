@@ -126,16 +126,16 @@ export const onSignUp = () => {
     }
 };
 //
-export const updateAccountSuccess = () => ({
-    type: types.POST_SUCCESS,
+export const updateNameSuccess = () => ({
+    type: types.UPDATE_NAME_SUCCESS,
 });
 
-export const updateAccountError = errorMessage => ({
-    type: types.POST_ERROR,
+export const updateNameError = errorMessage => ({
+    type: types.UPDATE_NAME_ERROR,
     errorMessage
 });
 
-const encodeUpdateAccountTransaction = function(user, content, dispatch) {
+const encodeUpdateNameTransaction = function(user, name, dispatch) {
     let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
     let txEncode = '0x';
     axios.get(req)
@@ -149,10 +149,10 @@ const encodeUpdateAccountTransaction = function(user, content, dispatch) {
             var sequence = transaction.findSequenceAvailable(data, user.public_key);
             const tx = {
                 version: 1,
-                operation: "post",
+                operation: "update_account",
                 params: {
-                    content: Buffer.from(content, 'base64'),
-                    keys: []
+                    key: 'name',
+                    value: Buffer.from(name, 'base66'),
                 },
                 account: user.public_key,
                 sequence: sequence,
@@ -164,17 +164,70 @@ const encodeUpdateAccountTransaction = function(user, content, dispatch) {
             return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
         })
         .then((res) => {
-            dispatch(updateAccountSuccess());
+            dispatch(updateNameSuccess());
         })
         .catch((err) => {
-            dispatch(updateAccountError(err));
+            dispatch(updateNameError(err));
         });
 }
 
-export const onUpdateAccount = (content) => {
+export const onUpdateName = (name) => {
     return (dispatch, getState) => {
         const { public_key, private_key } = getState().auth;
         const user = { public_key, private_key };
-        encodeUpdateAccountTransaction(user, dispatch);
+        encodeUpdateNameTransaction(user, name, dispatch);
+    };
+};
+//
+export const updatePicSuccess = () => ({
+    type: types.UPDATE_PIC_SUCCESS,
+});
+
+export const updatePicError = errorMessage => ({
+    type: types.UPDATE_PIC_ERROR,
+    errorMessage
+});
+
+const encodeUpdatePicTransaction = function(user, pic, dispatch) {
+    let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
+    let txEncode = '0x';
+    axios.get(req)
+        .then(res => {
+            const data = res.data.result.txs.map((each) => {
+                each.tx = transaction.decodeTransaction(each.tx);
+                each.tx.memo = each.tx.memo.toString();
+                each.tx.signature = each.tx.signature.toString('hex');
+                return each;
+            })
+            var sequence = transaction.findSequenceAvailable(data, user.public_key);
+            const tx = {
+                version: 1,
+                operation: "update_account",
+                params: {
+                    key: 'picture',
+                    value: Buffer.from(pic, 'base64'),
+                },
+                account: user.public_key,
+                sequence: sequence,
+                memo: Buffer.alloc(0),
+            }
+            transaction.sign(tx, user.private_key);
+            txEncode = '0x' + transaction.encode(tx).toString('hex');
+
+            return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
+        })
+        .then((res) => {
+            dispatch(updatePicSuccess());
+        })
+        .catch((err) => {
+            dispatch(updatePicError(err));
+        });
+}
+
+export const onUpdatePic = (pic) => {
+    return (dispatch, getState) => {
+        const { public_key, private_key } = getState().auth;
+        const user = { public_key, private_key };
+        encodeUpdatePicTransaction(user, pic, dispatch);
     };
 };

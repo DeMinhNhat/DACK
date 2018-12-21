@@ -17,6 +17,7 @@
     "ed2curve": "^0.2.1",
     "grpc": "^1.16.1",
     "history": "^4.7.2",
+    "jpeg-js": "^0.3.4",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "nuka-carousel": "^4.4.3",

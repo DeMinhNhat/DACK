@@ -84,6 +84,7 @@ export const retrievePost = () => {
                         const buf = Buffer.from(raw, 'base64');
                         const post = transaction.decode(buf);
                         if (post.operation === "post") {
+                            post.params.content = new Buffer(post.params.content, 'base64').toString("utf8");
                             dispatch(retrievePostSuccess(post));
                         } else {
                             dispatch(retrievePostError(`this block (${maxHeight}) is not post operation`));

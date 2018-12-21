@@ -60,7 +60,6 @@ export default class Profile extends Component {
             />
           }
           title={
-<<<<<<< HEAD
             <div class="cardHeader-inline">
               <div className="profile-name inline1">
                 <TextField disabled={this.state.user.readOnly} defaultValue={this.state.user.name} />
@@ -78,19 +77,6 @@ export default class Profile extends Component {
                 </div>
               </div>
               <br class="clearBoth" />
-=======
-            <div>
-              <div className="profile-name">{this.state.user.name}</div>
-              <Button
-                variant="outlined"
-                color="primary"
-                size="small"
-                className="edit"
-                onClick={()=>this.props.onUpdatePic(PIC)}
-              >
-                Edit
-              </Button>
->>>>>>> 1f49577e9f82d28e9b56ae22e777b940c0faca4d
             </div>
           }
           subheader={

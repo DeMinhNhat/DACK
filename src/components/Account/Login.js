@@ -10,6 +10,8 @@ import SignUp from "./SignUp"
 
 import "../../utils/login.css";
 
+//test merge
+
 const ContentLeft = () => {
     return (
         <div className="contentLeft">

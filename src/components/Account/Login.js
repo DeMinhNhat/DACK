@@ -10,10 +10,6 @@ import SignUp from "./SignUp"
 
 import "../../utils/login.css";
 
-//test merge
-// test merge 2
-// test merge 3
-
 const ContentLeft = () => {
     return (
         <div className="contentLeft">
@@ -84,7 +80,7 @@ class Login extends Component {
           <Grid item xs={12} sm={6}>
             <div className="rightLogin">
               <div className="blockFromLogin">
-                <form onSubmit = {this.handleLogin} >
+                <form onSubmit = {(e)=>this.handleLogin(e)} >
                   <div className="formLogin">
                     <div className="inline">
                       <TextField

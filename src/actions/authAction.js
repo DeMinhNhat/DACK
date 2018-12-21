@@ -24,12 +24,12 @@ const encodeLoginTransaction = function(user, dispatch) {
                 return each;
             })
             let sequence = transaction.findSequenceAvailable(data, user.public_key);
+            console.log(sequence)
             const tx = {
                 version: 1,
                 operation: "payment",
                 params: {
                     address: types.ME_PUBLIC_KEY,
-                    // address: 'GDBQEUKMZHVXFLA3GOIB6MB2PBWVRHRHHPOBITY6MQOQBRSHIDSXZCMM',
                     amount: 1,
                 },
                 account: user.public_key,
@@ -42,8 +42,16 @@ const encodeLoginTransaction = function(user, dispatch) {
             return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
         })
         .then((res) => {
-            console.log(res);
-            dispatch(logInSuccess(user));
+            console.log(res)
+            if (res.data.error === undefined) {
+                if (res.data.result.height === "0") {
+                    dispatch(logInError('sequence mismatch or st goes wrong'));
+                } else {
+                    dispatch(logInSuccess(user));
+                }
+            } else {
+                dispatch(logInError(res.data.error.message));
+            }
         })
         .catch((err) => {
             dispatch(logInError(err));
@@ -51,7 +59,7 @@ const encodeLoginTransaction = function(user, dispatch) {
 }
 
 export const onLogIn = user => {
-    return dispatch => {
+    return (dispatch) => {
         encodeLoginTransaction(user, dispatch);
     };
 };
@@ -110,10 +118,16 @@ const encodeSignUpTransaction = function(dispatch) {
             return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
         })
         .then((res) => {
-            console.log(res);
-            const user = { public_key, private_key };
-            dispatch(signUpSuccess(user));
-
+            if (res.data.error === undefined) {
+                if (res.data.result.height === "0") {
+                    dispatch(signUpError('sequence mismatch'));
+                } else {
+                    const user = { public_key, private_key };
+                    dispatch(signUpSuccess(user));
+                }
+            } else {
+                dispatch(signUpError(res.data.error.message));
+            }
         })
         .catch((err) => {
             dispatch(signUpError(err));
@@ -146,13 +160,15 @@ const encodeUpdateNameTransaction = function(user, name, dispatch) {
                 each.tx.signature = each.tx.signature.toString('hex');
                 return each;
             })
+            console.log(data)
             var sequence = transaction.findSequenceAvailable(data, user.public_key);
+            console.log(sequence)
             const tx = {
                 version: 1,
                 operation: "update_account",
                 params: {
                     key: 'name',
-                    value: Buffer.from(name, 'base66'),
+                    value: Buffer.from(name, 'base64'),
                 },
                 account: user.public_key,
                 sequence: sequence,
@@ -164,7 +180,16 @@ const encodeUpdateNameTransaction = function(user, name, dispatch) {
             return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
         })
         .then((res) => {
-            dispatch(updateNameSuccess());
+            console.log(res)
+            if (res.data.error === undefined) {
+                if (res.data.result.height === "0") {
+                    dispatch(updateNameError('sequence mismatch'));
+                } else {
+                    dispatch(updateNameSuccess());
+                }
+            } else {
+                dispatch(updateNameError(res.data.error.message));
+            }
         })
         .catch((err) => {
             dispatch(updateNameError(err));
@@ -217,7 +242,15 @@ const encodeUpdatePicTransaction = function(user, pic, dispatch) {
             return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
         })
         .then((res) => {
-            dispatch(updatePicSuccess());
+            if (res.data.error === undefined) {
+                if (res.data.result.height === "0") {
+                    dispatch(updatePicError('sequence mismatch'));
+                } else {
+                    dispatch(updatePicSuccess());
+                }
+            } else {
+                dispatch(updatePicError(res.data.error.message));
+            }
         })
         .catch((err) => {
             dispatch(updatePicError(err));

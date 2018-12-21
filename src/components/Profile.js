@@ -7,7 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { PIC } from "../constants";
+// import { PIC } from "../constants";
 
 import "../utils/profile.css";
 
@@ -47,7 +47,7 @@ export default class Profile extends Component {
                 color="primary"
                 size="small"
                 className="edit"
-                onClick={()=>this.props.onUpdatePic(PIC)}
+                onClick={()=>this.props.onUpdateName("Hello!!!")}
               >
                 Edit
               </Button>

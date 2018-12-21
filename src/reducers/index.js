@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
+import { maxHeight } from './maxHeight'
 import { posts } from './posts'
 import { auth } from './auth'
-import { maxHeight } from './maxHeight'
 
 const rootReducer = combineReducers({
     auth,

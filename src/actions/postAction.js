@@ -20,7 +20,9 @@ const encodePostTransaction = function(user, content, dispatch) {
                 each.tx.signature = each.tx.signature.toString('hex');
                 return each;
             })
+            console.log(data);
             var sequence = transaction.findSequenceAvailable(data, user.public_key);
+            console.log(`sequence: ${sequence}`);
             const tx = {
                 version: 1,
                 operation: "post",
@@ -39,7 +41,15 @@ const encodePostTransaction = function(user, content, dispatch) {
         })
         .then((res) => {
             console.log(res);
-            dispatch(postSuccess());
+            if (res.data.error === undefined) {
+                if (res.data.result.height === "0") {
+                    dispatch(postError('sequence mismatch'));
+                } else {
+                    dispatch(postSuccess());
+                }
+            } else {
+                dispatch(postError(res.data.error.message));
+            }
         })
         .catch((err) => {
             dispatch(postError(err));

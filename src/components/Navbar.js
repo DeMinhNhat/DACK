@@ -21,22 +21,22 @@ import { Link } from "react-router-dom";
 import "../utils/navbar.css";
 
 export default class Navbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { open: false };
-  }
+    constructor(props) {
+        super(props);
+        this.state = { open: false };
+    }
 
-  onOpenPost = () => {
-    this.setState({ open: true });
-  };
+    onOpenPost = () => {
+        this.setState({ open: true });
+    };
 
-  onClosePost = () => {
-    this.setState({ open: false });
-  };
+    onClosePost = () => {
+        this.setState({ open: false });
+    };
 
-  render() {
-    return (
-      <div>
+    render() {
+        return (
+            <div>
         <AppBar className="appbar" color="inherit" position="static">
           <Grid container>
             <Grid item xs={1} />
@@ -142,7 +142,7 @@ export default class Navbar extends Component {
             </DialogContent>
             <DialogActions>
               <Button
-                onClick={()=>this.props.onPost("tui đang test nhé mấy bros :3")}
+                onClick={()=>this.props.onPost("tui đang test aaaaaa nhé mấy bros :3")}
                 className="chirp"
                 variant="contained"
                 color="primary"
@@ -153,6 +153,8 @@ export default class Navbar extends Component {
           </Dialog>
         </AppBar>
       </div>
-    );
-  }
+        );
+    }
 }
+// onClick={()=>this.props.onPost("tui đang test nhé mấy bros :3")}
+// onClick={()=>this.props.onFollow("GAKXVIL35CL7QRBFIAXCYMOAV4JKD3QDWGRYJRMSWNRJWX7RL726IAOF")}

@@ -2,16 +2,16 @@ import axios from "axios";
 import * as types from "../constants";
 import * as transaction from "../lib/transaction";
 
-export const followingSuccess = () => ({
-    type: types.FOLLOWING_SUCCESS,
+export const followSuccess = () => ({
+    type: types.FOLLOW_SUCCESS,
 });
 
-export const followingError = errorMessage => ({
-    type: types.FOLLOWING_ERROR,
+export const followError = errorMessage => ({
+    type: types.FOLLOW_ERROR,
     errorMessage
 });
 
-const encodeFollowingTransaction = function(user, publicKey, dispatch) {
+const encodeFollowTransaction = function(user, publicKey, dispatch) {
     let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
     let txEncode = '0x';
     axios.get(req)
@@ -23,14 +23,16 @@ const encodeFollowingTransaction = function(user, publicKey, dispatch) {
                 return each;
             })
             let sequence = transaction.findSequenceAvailable(data, user.public_key);
+            console.log(`sequence: ${sequence}`);
             const tx = {
                 version: 1,
-                operation: "following",
+                operation: "update_account",
                 params: {
-                    address: publicKey
+                    key: 'followings',
+                    value: Buffer.from(publicKey, 'base64'),
                 },
                 account: user.public_key,
-                sequence: sequence,
+                sequence: parseInt(sequence, 10),
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);
@@ -39,18 +41,25 @@ const encodeFollowingTransaction = function(user, publicKey, dispatch) {
             return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
         })
         .then((res) => {
-            console.log(res);
-            dispatch(followingSuccess());
+            if (res.data.error === undefined) {
+                if (res.data.result.height === "0") {
+                    dispatch(followError('sequence mismatch'));
+                } else {
+                    dispatch(followSuccess());
+                }
+            } else {
+                dispatch(followError(res.data.error.message));
+            }
         })
         .catch((err) => {
-            dispatch(followingError(err));
+            dispatch(followError(err));
         });
 }
 
-export const onFollowing = (publicKey) => {
+export const onFollow = (publicKey) => {
     return (dispatch, getState) => {
         const { public_key, private_key } = getState().auth;
         const user = { public_key, private_key };
-        encodeFollowingTransaction(user, publicKey, dispatch);
+        encodeFollowTransaction(user, publicKey, dispatch);
     };
 };

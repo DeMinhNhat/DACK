@@ -6,9 +6,9 @@ import CardContent from "@material-ui/core/CardContent";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Button from "@material-ui/core/Button";
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 import { Link } from "react-router-dom";
-import { PIC } from "../constants";
+import { PIC } from "../constants/";
 
 import "../utils/profile.css";
 
@@ -26,29 +26,27 @@ export default class Profile extends Component {
         readOnly: true
       }
     };
-
-
   }
 
-  editInfo =() => {
+  editInfo = () => {
     this.setState({
-      user :{
-        readOnly: !this.state.user.readOnly  
+      user: {
+        readOnly: !this.state.user.readOnly
       }
-    })
-  }
+    });
+  };
 
-  saveInfo =() => {
+  saveInfo = () => {
     this.setState({
-      user :{
-        readOnly: !this.state.user.readOnly 
+      user: {
+        readOnly: !this.state.user.readOnly
       }
-    })
-  }
+    });
+  };
 
-    render() {
-        return (
-            <Card className="profile-card">
+  render() {
+    return (
+      <Card className="profile-card">
         <CardHeader
           className="profile-card-header"
           avatar={
@@ -62,16 +60,31 @@ export default class Profile extends Component {
           title={
             <div class="cardHeader-inline">
               <div className="profile-name inline1">
-                <TextField disabled={this.state.user.readOnly} defaultValue={this.state.user.name} />
+                <TextField
+                  disabled={this.state.user.readOnly}
+                  defaultValue={this.state.user.name}
+                />
               </div>
-              <div className='inline2'>
+              <div className="inline2">
                 <div hidden={!this.state.user.readOnly}>
-                  <Button variant="outlined" color="primary" size="small" className="edit" onClick={this.editInfo}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    size="small"
+                    className="edit"
+                    onClick={this.editInfo}
+                  >
                     Edit
                   </Button>
                 </div>
                 <div hidden={this.state.user.readOnly}>
-                  <Button variant="outlined" color="primary" size="small" className="save" onClick={this.saveInfo}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    size="small"
+                    className="save"
+                    onClick={this.saveInfo}
+                  >
                     Save
                   </Button>
                 </div>
@@ -80,12 +93,32 @@ export default class Profile extends Component {
             </div>
           }
           subheader={
-            <div className={this.state.user.readOnly ? 'profile-about-readOnly' : 'profile-about'}>
-                <TextField disabled={this.state.user.readOnly} defaultValue={this.state.user.about}/>
+            <div
+              className={
+                this.state.user.readOnly
+                  ? "profile-about-readOnly"
+                  : "profile-about"
+              }
+            >
+              <TextField
+                disabled={this.state.user.readOnly}
+                defaultValue={this.state.user.about}
+              />
             </div>
           }
         />
         <CardContent>
+          <ListItem className="profile-item" button>
+            <Button
+              variant="outlined"
+              color="primary"
+              size="small"
+              className="save"
+              onClick={() => this.props.onUpdateName("PIC")}
+            >
+              this button is used to test
+            </Button>
+          </ListItem>
           <ListItem className="profile-item" button>
             <ListItemText
               className="profile-item"
@@ -125,6 +158,6 @@ export default class Profile extends Component {
           </Link>
         </CardContent>
       </Card>
-        );
-    }
+    );
+  }
 }

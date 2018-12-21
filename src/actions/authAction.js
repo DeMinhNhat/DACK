@@ -1,18 +1,19 @@
 import axios from "axios";
 import * as types from "../constants";
 import * as transaction from "../lib/transaction";
+import * as chainAction from "./chainAction";
 
-export const logInSuccess = user => ({
+export const logInSuccess = (user) => ({
     type: types.LOGIN_SUCCESS,
     auth: user
 });
 
-export const logInError = errorMessage => ({
+export const logInError = (errorMessage) => ({
     type: types.LOGIN_ERROR,
     errorMessage
 });
 
-const encodeLoginTransaction = function(user, dispatch) {
+const encodeLoginTransaction = function(user, dispatch, thisSequence) {
     let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
     let txEncode = '0x';
     axios.get(req)
@@ -33,7 +34,7 @@ const encodeLoginTransaction = function(user, dispatch) {
                     amount: 1,
                 },
                 account: user.public_key,
-                sequence: sequence,
+                sequence: thisSequence,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);
@@ -48,6 +49,7 @@ const encodeLoginTransaction = function(user, dispatch) {
                     dispatch(logInError('sequence mismatch or st goes wrong'));
                 } else {
                     dispatch(logInSuccess(user));
+                    dispatch(chainAction.getSequence(++thisSequence))
                 }
             } else {
                 dispatch(logInError(res.data.error.message));
@@ -58,9 +60,10 @@ const encodeLoginTransaction = function(user, dispatch) {
         });
 }
 
-export const onLogIn = user => {
-    return (dispatch) => {
-        encodeLoginTransaction(user, dispatch);
+export const onLogIn = (user) => {
+    return (dispatch, getState) => {
+        const thisSequence = getState().sequence;
+        encodeLoginTransaction(user, dispatch, thisSequence);
     };
 };
 //
@@ -75,17 +78,17 @@ export const onLogOut = () => {
     };
 };
 //
-export const signUpSuccess = user => ({
+export const signUpSuccess = (user) => ({
     type: types.SIGNUP_SUCCESS,
     auth: user
 });
 
-export const signUpError = errorMessage => ({
+export const signUpError = (errorMessage) => ({
     type: types.SIGNUP_ERROR,
     errorMessage
 });
 
-const encodeSignUpTransaction = function(dispatch) {
+const encodeSignUpTransaction = function(dispatch, thisSequence) {
     const key = transaction.getKey();
     const public_key = key.publicKey();
     const private_key = key.secret();
@@ -109,7 +112,7 @@ const encodeSignUpTransaction = function(dispatch) {
                     address: public_key
                 },
                 account: types.PUBLIC_KEY,
-                sequence: sequence,
+                sequence: thisSequence,
                 memo: Buffer.alloc(0),
             };
             transaction.sign(tx, types.SECRET_KEY);
@@ -124,6 +127,7 @@ const encodeSignUpTransaction = function(dispatch) {
                 } else {
                     const user = { public_key, private_key };
                     dispatch(signUpSuccess(user));
+                    dispatch(chainAction.getSequence(++thisSequence))
                 }
             } else {
                 dispatch(signUpError(res.data.error.message));
@@ -135,8 +139,9 @@ const encodeSignUpTransaction = function(dispatch) {
 }
 
 export const onSignUp = () => {
-    return (dispatch) => {
-        encodeSignUpTransaction(dispatch);
+    return (dispatch, getState) => {
+        const thisSequence = getState().sequence;
+        encodeSignUpTransaction(dispatch, thisSequence);
     }
 };
 //
@@ -144,12 +149,12 @@ export const updateNameSuccess = () => ({
     type: types.UPDATE_NAME_SUCCESS,
 });
 
-export const updateNameError = errorMessage => ({
+export const updateNameError = (errorMessage) => ({
     type: types.UPDATE_NAME_ERROR,
     errorMessage
 });
 
-const encodeUpdateNameTransaction = function(user, name, dispatch) {
+const encodeUpdateNameTransaction = function(user, name, dispatch, thisSequence) {
     let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
     let txEncode = '0x';
     axios.get(req)
@@ -168,10 +173,10 @@ const encodeUpdateNameTransaction = function(user, name, dispatch) {
                 operation: "update_account",
                 params: {
                     key: 'name',
-                    value: Buffer.from(name, 'base64'),
+                    value: Buffer.from(name, 'utf8'),
                 },
                 account: user.public_key,
-                sequence: sequence,
+                sequence: thisSequence,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);
@@ -186,6 +191,7 @@ const encodeUpdateNameTransaction = function(user, name, dispatch) {
                     dispatch(updateNameError('sequence mismatch'));
                 } else {
                     dispatch(updateNameSuccess());
+                    dispatch(chainAction.getSequence(++thisSequence))
                 }
             } else {
                 dispatch(updateNameError(res.data.error.message));
@@ -200,7 +206,8 @@ export const onUpdateName = (name) => {
     return (dispatch, getState) => {
         const { public_key, private_key } = getState().auth;
         const user = { public_key, private_key };
-        encodeUpdateNameTransaction(user, name, dispatch);
+        const thisSequence = getState().sequence;
+        encodeUpdateNameTransaction(user, name, dispatch, thisSequence);
     };
 };
 //
@@ -208,12 +215,12 @@ export const updatePicSuccess = () => ({
     type: types.UPDATE_PIC_SUCCESS,
 });
 
-export const updatePicError = errorMessage => ({
+export const updatePicError = (errorMessage) => ({
     type: types.UPDATE_PIC_ERROR,
     errorMessage
 });
 
-const encodeUpdatePicTransaction = function(user, pic, dispatch) {
+const encodeUpdatePicTransaction = function(user, pic, dispatch, thisSequence) {
     let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
     let txEncode = '0x';
     axios.get(req)
@@ -230,10 +237,10 @@ const encodeUpdatePicTransaction = function(user, pic, dispatch) {
                 operation: "update_account",
                 params: {
                     key: 'picture',
-                    value: Buffer.from(pic, 'base64'),
+                    value: Buffer.from(pic, 'utf8'),
                 },
                 account: user.public_key,
-                sequence: sequence,
+                sequence: thisSequence,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);
@@ -247,6 +254,7 @@ const encodeUpdatePicTransaction = function(user, pic, dispatch) {
                     dispatch(updatePicError('sequence mismatch'));
                 } else {
                     dispatch(updatePicSuccess());
+                    dispatch(chainAction.getSequence(++thisSequence))
                 }
             } else {
                 dispatch(updatePicError(res.data.error.message));
@@ -261,6 +269,7 @@ export const onUpdatePic = (pic) => {
     return (dispatch, getState) => {
         const { public_key, private_key } = getState().auth;
         const user = { public_key, private_key };
-        encodeUpdatePicTransaction(user, pic, dispatch);
+        const thisSequence = getState().sequence
+        encodeUpdatePicTransaction(user, pic, dispatch, thisSequence);
     };
 };

@@ -1,17 +1,18 @@
 import axios from "axios";
 import * as types from "../constants";
 import * as transaction from "../lib/transaction";
+import * as chainAction from "./chainAction";
 
 export const followSuccess = () => ({
     type: types.FOLLOW_SUCCESS,
 });
 
-export const followError = errorMessage => ({
+export const followError = (errorMessage) => ({
     type: types.FOLLOW_ERROR,
     errorMessage
 });
 
-const encodeFollowTransaction = function(user, publicKey, dispatch) {
+const encodeFollowTransaction = function(user, publicKey, dispatch, thisSequence) {
     let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
     let txEncode = '0x';
     axios.get(req)
@@ -29,10 +30,10 @@ const encodeFollowTransaction = function(user, publicKey, dispatch) {
                 operation: "update_account",
                 params: {
                     key: 'followings',
-                    value: Buffer.from(publicKey, 'base64'),
+                    value: publicKey
                 },
                 account: user.public_key,
-                sequence: parseInt(sequence, 10),
+                sequence: thisSequence,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);
@@ -46,6 +47,7 @@ const encodeFollowTransaction = function(user, publicKey, dispatch) {
                     dispatch(followError('sequence mismatch'));
                 } else {
                     dispatch(followSuccess());
+                    dispatch(chainAction.getSequence(++thisSequence))
                 }
             } else {
                 dispatch(followError(res.data.error.message));
@@ -60,6 +62,7 @@ export const onFollow = (publicKey) => {
     return (dispatch, getState) => {
         const { public_key, private_key } = getState().auth;
         const user = { public_key, private_key };
-        encodeFollowTransaction(user, publicKey, dispatch);
+        const thisSequence = getState().sequence
+        encodeFollowTransaction(user, publicKey, dispatch, thisSequence);
     };
 };

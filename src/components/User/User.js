@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Sticky from "react-sticky-el";
-import Profile from "../Profile";
+import ProfileContainer from "../../containers/ProfileContainer";
 import NavbarContainer from "../../containers/NavbarContainer";
 import Tabs from "./Tabs";
 
@@ -17,7 +17,7 @@ export default class User extends Component {
           <Grid item xs={1} />
           <Grid className="grid" item xs={3}>
             <Sticky>
-              <Profile />
+              <ProfileContainer />
             </Sticky>
           </Grid>
           <Grid

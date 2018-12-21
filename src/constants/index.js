@@ -7,6 +7,11 @@ export const LOGOUT_ERROR = "LOGOUT_ERROR";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_ERROR = "SIGNUP_ERROR";
 
+export const UPDATE_NAME_SUCCESS = "UPDATE_NAME_SUCCESS";
+export const UPDATE_NAME_ERROR = "UPDATE_NAME_ERROR";
+export const UPDATE_PIC_SUCCESS = "UPDATE_PIC_SUCCESS";
+export const UPDATE_PIC_ERROR = "UPDATE_PIC_ERROR";
+
 // post actions
 export const POST_SUCCESS = "POST_SUCCESS";
 export const POST_ERROR = "POST_ERROR";

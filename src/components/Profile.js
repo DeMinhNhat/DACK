@@ -11,23 +11,23 @@ import { Link } from "react-router-dom";
 import "../utils/profile.css";
 
 export default class Profile extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: {
-                avatar: "https://img.icons8.com/metro/1600/github.png",
-                name: "Tokama",
-                about: "I am a professional, hehe",
-                tweetNum: 3,
-                followingNum: 7,
-                followerNum: 5
-            }
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {
+        avatar: "https://img.icons8.com/metro/1600/github.png",
+        name: "Tokama",
+        about: "I am a professional, hehe",
+        tweetNum: 3,
+        followingNum: 7,
+        followerNum: 5
+      }
+    };
+  }
 
-    render() {
-        return (
-            <Card className="profile-card">
+  render() {
+    return (
+      <Card className="profile-card">
         <CardHeader
           className="profile-card-header"
           avatar={
@@ -39,14 +39,19 @@ export default class Profile extends Component {
             />
           }
           title={
-<div>
-            <div className="profile-name">
-          {this.state.user.name}
-          </div>
-          <Button variant="outlined" color="primary" size="small" className="edit">
-            Edit
-          </Button>
-          </div>}
+            <div>
+              <div className="profile-name">{this.state.user.name}</div>
+              <Button
+                variant="outlined"
+                color="primary"
+                size="small"
+                className="edit"
+                onClick={()=>this.props.onUpdateName("Your Name here")}
+              >
+                Edit
+              </Button>
+            </div>
+          }
           subheader={
             <div className="profile-about">{this.state.user.about}</div>
           }
@@ -63,7 +68,7 @@ export default class Profile extends Component {
             </Avatar>
           </ListItem>
 
-          <Link to='followers' className="linkFollowers">
+          <Link to="followers" className="linkFollowers">
             <ListItem className="profile-item" button>
               <ListItemText
                 className="profile-item"
@@ -74,11 +79,10 @@ export default class Profile extends Component {
               <Avatar className="profile-num-avatar profile-item">
                 {this.state.user.followerNum}
               </Avatar>
-
             </ListItem>
           </Link>
 
-          <Link to='following' className="linkFollowing">
+          <Link to="following" className="linkFollowing">
             <ListItem className="profile-item" button>
               <ListItemText
                 className="profile-info"
@@ -92,6 +96,6 @@ export default class Profile extends Component {
           </Link>
         </CardContent>
       </Card>
-        );
-    }
+    );
+  }
 }

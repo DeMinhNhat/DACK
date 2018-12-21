@@ -6,25 +6,45 @@ import CardContent from "@material-ui/core/CardContent";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Button from "@material-ui/core/Button";
+import TextField from '@material-ui/core/TextField';
 import { Link } from "react-router-dom";
-// import { PIC } from "../constants";
+import { PIC } from "../constants";
 
 import "../utils/profile.css";
 
 export default class Profile extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: {
-                avatar: "https://img.icons8.com/metro/1600/github.png",
-                name: "Tokama",
-                about: "I am a professional, hehe",
-                tweetNum: 3,
-                followingNum: 7,
-                followerNum: 5
-            }
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {
+        avatar: "https://img.icons8.com/metro/1600/github.png",
+        name: "Tokama",
+        about: "I am a professional, hehe",
+        tweetNum: 3,
+        followingNum: 7,
+        followerNum: 5,
+        readOnly: true
+      }
+    };
+
+
+  }
+
+  editInfo =() => {
+    this.setState({
+      user :{
+        readOnly: !this.state.user.readOnly  
+      }
+    })
+  }
+
+  saveInfo =() => {
+    this.setState({
+      user :{
+        readOnly: !this.state.user.readOnly 
+      }
+    })
+  }
 
     render() {
         return (
@@ -40,21 +60,29 @@ export default class Profile extends Component {
             />
           }
           title={
-            <div>
-              <div className="profile-name">{this.state.user.name}</div>
-              <Button
-                variant="outlined"
-                color="primary"
-                size="small"
-                className="edit"
-                onClick={()=>this.props.onUpdateName("Hello!!!")}
-              >
-                Edit
-              </Button>
+            <div class="cardHeader-inline">
+              <div className="profile-name inline1">
+                <TextField disabled={this.state.user.readOnly} defaultValue={this.state.user.name} />
+              </div>
+              <div className='inline2'>
+                <div hidden={!this.state.user.readOnly}>
+                  <Button variant="outlined" color="primary" size="small" className="edit" onClick={this.editInfo}>
+                    Edit
+                  </Button>
+                </div>
+                <div hidden={this.state.user.readOnly}>
+                  <Button variant="outlined" color="primary" size="small" className="save" onClick={this.saveInfo}>
+                    Save
+                  </Button>
+                </div>
+              </div>
+              <br class="clearBoth" />
             </div>
           }
           subheader={
-            <div className="profile-about">{this.state.user.about}</div>
+            <div className={this.state.user.readOnly ? 'profile-about-readOnly' : 'profile-about'}>
+                <TextField disabled={this.state.user.readOnly} defaultValue={this.state.user.about}/>
+            </div>
           }
         />
         <CardContent>

@@ -7,7 +7,7 @@
     padding: 20px !important;
 }
 
-button.edit-profile-button{
+.cardHeader-inline button.edit-profile-button{
   -moz-border-radius: 23px;
     -webkit-border-radius: 23px;
     border-radius: 23px;
@@ -19,7 +19,7 @@ button.edit-profile-button{
   margin-left: 160px;
 }
 
-button.edit{
+.cardHeader-inline button.edit{
   -moz-border-radius: 23px;
     -webkit-border-radius: 23px;
     border-radius: 23px;
@@ -31,6 +31,18 @@ button.edit{
     margin-left: 10px;
 }
 
+.cardHeader-inline button.save{
+    -moz-border-radius: 23px;
+      -webkit-border-radius: 23px;
+      border-radius: 23px;
+      display: inline-block;
+      cursor: pointer;
+      padding: 2px 3px;
+      font-size: 8px;
+      text-decoration: none;
+      margin-left: 10px;
+  }
+  
 .profile-card-title {
     padding-top: 0 !important;
     padding-bottom: 8px;
@@ -43,6 +55,17 @@ button.edit{
 
 .profile-about {
     font-size: 16px;
+    outline: none;
+}
+
+.profile-about-readOnly{
+    font-size: 16px;
+    outline: none;
+}
+
+.profile-about-readOnly  :focus{
+    font-size: 16px;
+    outline: none;
 }
 
 .profile-avatar {
@@ -69,4 +92,16 @@ button.edit{
 
 .linkFollowing{
     text-decoration: none;
+}
+
+.cardHeader-inline .inline1{
+    width: 123px;
+    float:left;
+}
+
+.cardHeader-inline .inline2{
+    float:left;
+}
+.cardHeader-inline .clearBoth{
+    clear:both;
 }

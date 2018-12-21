@@ -30,61 +30,100 @@ export default class Profile extends Component {
 
   }
 
+  handleChange = (e) => {
+    let name =this.state.user.name;
+    let about = this.state.user.about;
+
+    [e.target.name] == "name" ? name = e.target.value : about = e.target.value;
+
+    this.setState({
+      user :{
+        avatar: this.state.user.avatar,
+        name: name,
+        about: about,
+        tweetNum: this.state.user.tweetNum,
+        followingNum: this.state.user.followingNum,
+        followerNum: this.state.user.followerNum,
+        readOnly: false
+      }
+    })
+}
+
   editInfo =() => {
     this.setState({
       user :{
-        readOnly: !this.state.user.readOnly  
+        avatar: this.state.user.avatar,
+        name: this.state.user.name,
+        about: this.state.user.about,
+        tweetNum: this.state.user.tweetNum,
+        followingNum: this.state.user.followingNum,
+        followerNum: this.state.user.followerNum,
+        readOnly: false
       }
     })
   }
 
-  saveInfo =() => {
+  saveInfo =(e) => {
+    e.preventDefault();
+    const form = {
+     name: this.state.user.name,
+     about: this.state.user.about
+    }
     this.setState({
       user :{
-        readOnly: !this.state.user.readOnly 
+        avatar: this.state.user.avatar,
+        name: this.state.user.name,
+        about: this.state.user.about,
+        tweetNum: this.state.user.tweetNum,
+        followingNum: this.state.user.followingNum,
+        followerNum: this.state.user.followerNum,
+        readOnly: true
       }
     })
+    
   }
 
-    render() {
-        return (
-            <Card className="profile-card">
-        <CardHeader
-          className="profile-card-header"
-          avatar={
-            <Avatar
-              component={Link}
-              to={`/user`}
-              src={this.state.user.avatar}
-              className="profile-avatar"
-            />
-          }
-          title={
-            <div class="cardHeader-inline">
-              <div className="profile-name inline1">
-                <TextField disabled={this.state.user.readOnly} defaultValue={this.state.user.name} />
-              </div>
-              <div className='inline2'>
-                <div hidden={!this.state.user.readOnly}>
-                  <Button variant="outlined" color="primary" size="small" className="edit" onClick={this.editInfo}>
-                    Edit
-                  </Button>
+  render() {
+    return (
+      <Card className="profile-card">
+        <form>
+          <CardHeader
+            className="profile-card-header"
+            avatar={
+              <Avatar
+                component={Link}
+                to={`/user`}
+                src={this.state.user.avatar}
+                className="profile-avatar"
+              />
+            }
+            title={
+              <div class="cardHeader-inline">
+                <div className="profile-name inline1">
+                  <TextField name='name' disabled={this.state.user.readOnly} value={this.state.user.name} onChange={e => this.handleChange(e)}/>
                 </div>
-                <div hidden={this.state.user.readOnly}>
-                  <Button variant="outlined" color="primary" size="small" className="save" onClick={this.saveInfo}>
-                    Save
+                <div className='inline2'>
+                  <div hidden={!this.state.user.readOnly}>
+                    <Button variant="outlined" color="primary" size="small" className="edit" onClick={this.editInfo}>
+                      Edit
                   </Button>
+                  </div>
+                  <div hidden={this.state.user.readOnly}>
+                    <Button variant="outlined" color="primary" size="small" className="save" onClick={(e)=>this.saveInfo(e)}>
+                      Save
+                  </Button>
+                  </div>
                 </div>
+                <br class="clearBoth" />
               </div>
-              <br class="clearBoth" />
-            </div>
-          }
-          subheader={
-            <div className={this.state.user.readOnly ? 'profile-about-readOnly' : 'profile-about'}>
-                <TextField disabled={this.state.user.readOnly} defaultValue={this.state.user.about}/>
-            </div>
-          }
-        />
+            }
+            subheader={
+              <div className={this.state.user.readOnly ? 'profile-about-readOnly' : 'profile-about'}>
+                <TextField name='about' disabled={this.state.user.readOnly} value={this.state.user.about} onChange={e => this.handleChange(e)}/>
+              </div>
+            }
+          />
+        </form>
         <CardContent>
           <ListItem className="profile-item" button>
             <ListItemText
@@ -125,6 +164,6 @@ export default class Profile extends Component {
           </Link>
         </CardContent>
       </Card>
-        );
-    }
+    );
+  }
 }

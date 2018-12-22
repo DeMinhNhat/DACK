@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as types from "../constants";
 import * as transaction from "../lib/transaction";
+import * as chainAction from "./chainAction";
 
 export const postSuccess = () => ({ type: types.POST_SUCCESS });
 
@@ -9,7 +10,7 @@ export const postError = errorMessage => ({
     errorMessage
 });
 
-const encodePostTransaction = function(user, content, dispatch) {
+const encodePostTransaction = function(user, content, dispatch, thisSequence) {
     let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
     let txEncode = '0x';
     axios.get(req)
@@ -20,16 +21,22 @@ const encodePostTransaction = function(user, content, dispatch) {
                 each.tx.signature = each.tx.signature.toString('hex');
                 return each;
             })
+            console.log(data);
             var sequence = transaction.findSequenceAvailable(data, user.public_key);
+            console.log(`sequence: ${sequence}`);
+            const thisContent = {
+                type: 'Buffer',
+                data: Buffer.from(content, 'utf8'),
+            }
             const tx = {
                 version: 1,
                 operation: "post",
                 params: {
-                    content: Buffer.from(content, 'base64'),
+                    content: Buffer.from(thisContent, 'utf8'),
                     keys: []
                 },
                 account: user.public_key,
-                sequence: sequence,
+                sequence: thisSequence,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);
@@ -39,7 +46,16 @@ const encodePostTransaction = function(user, content, dispatch) {
         })
         .then((res) => {
             console.log(res);
-            dispatch(postSuccess());
+            if (res.data.error === undefined) {
+                if (res.data.result.height === "0") {
+                    dispatch(postError('sequence mismatch'));
+                } else {
+                    dispatch(postSuccess());
+                    dispatch(chainAction.getSequence(++thisSequence))
+                }
+            } else {
+                dispatch(postError(res.data.error.message));
+            }
         })
         .catch((err) => {
             dispatch(postError(err));
@@ -50,7 +66,8 @@ export const onPost = (content) => {
     return (dispatch, getState) => {
         const { public_key, private_key } = getState().auth;
         const user = { public_key, private_key };
-        encodePostTransaction(user, content, dispatch);
+        const thisSequence = getState().sequence
+        encodePostTransaction(user, content, dispatch, thisSequence);
     };
 };
 //

@@ -68,11 +68,11 @@ export const decodeTransaction = (data) => {
 
 export function findSequenceAvailable(data, public_key) {
     data.reverse();
-    for (const block of data) {
-        if (block.tx.account === public_key)
+    for(const block of data)
+    {
+        // if(block.tx.account === public_key)
             return block.tx.sequence + 1;
     }
-    return 1;
+    // return 35;
 }
-
 // module.exports = { encode, decode, verify, sign, hash };

@@ -16,8 +16,6 @@ export default class Posts extends Component {
                 likeNum: 3,
                 loveNum: 3,
                 hahaNum: 7,
-                shareNum: 2,
-                commentNum: 4,
                 liked: true,
                 loved: false,
                 hahad: false,
@@ -43,10 +41,6 @@ export default class Posts extends Component {
         this.props.retrievePost();
     }
 
-    toggleLove = inx => {};
-
-    toggleCheck = inx => {};
-
     render() {
         let elements = this.state.users.map((user, index) => {
             return (
@@ -59,8 +53,6 @@ export default class Posts extends Component {
           likeNum={user.likeNum}
           loveNum={user.loveNum}
           hahaNum={user.hahaNum}
-          shareNum={user.shareNum}
-          commentNum={user.commentNum}
           liked={user.liked}
           loved={user.loved}
           hahad={user.hahad}
@@ -68,8 +60,6 @@ export default class Posts extends Component {
           toggleLike={this.toggleLike}
           toggleLove={this.toggleLove}
           toggleHaha={this.toggleHaha}
-          onShare={this.onShare}
-          onComment={this.onComment}
         />
             );
         });

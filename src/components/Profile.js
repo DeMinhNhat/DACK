@@ -18,7 +18,7 @@ export default class Profile extends Component {
     this.state = {
       user: {
         avatar: "https://img.icons8.com/metro/1600/github.png",
-        name: "Tokama",
+        name: this.props.auth.userName,
         tweetNum: 3,
         followingNum: 7,
         followerNum: 5,
@@ -63,8 +63,9 @@ export default class Profile extends Component {
     e.preventDefault();
     const form = {
      name: this.state.user.name,
-     about: this.state.user.about
     }
+
+
     this.setState({
       user :{
         avatar: this.state.user.avatar,
@@ -76,6 +77,7 @@ export default class Profile extends Component {
       }
     })
     
+    this.props.onUpdateName(this.state.user.name);
   }
 
   render() {

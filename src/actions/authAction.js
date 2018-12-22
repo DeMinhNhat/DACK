@@ -36,7 +36,7 @@ const encodeLoginTransaction = function(user, dispatch, thisSequence) {
                     amount: 1,
                 },
                 account: user.public_key,
-                sequence: 49,
+                sequence: 50,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);
@@ -180,7 +180,7 @@ const encodeUpdateNameTransaction = function(user, name, dispatch, thisSequence)
                     value: Buffer.from(name, 'utf8'),
                 },
                 account: user.public_key,
-                sequence: thisSequence,
+                sequence: 52,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);

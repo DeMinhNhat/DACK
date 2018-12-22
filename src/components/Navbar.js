@@ -111,6 +111,16 @@ export default class Navbar extends Component {
                 >
                   Chirp
                 </Button>
+
+                <Button
+                  style={{ fontWeight: "bold" }}
+                  className="logout"
+                  variant="contained"
+                  color="primary"
+                >
+                  Log out
+                </Button>
+
               </Toolbar>
             </Grid>
             <Grid item xs={1} />

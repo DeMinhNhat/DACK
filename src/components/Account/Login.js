@@ -66,8 +66,8 @@ class Login extends Component {
 
     render() {
 
-        if (this.props.auth.isUserSignedIn)
-            return <Redirect to='/home' />;
+        // if (this.props.auth.isUserSignedIn)
+        // return <Redirect to='/home' />;
 
         return (
             <div>

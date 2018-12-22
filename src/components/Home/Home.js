@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Sticky from "react-sticky-el";
+import { Redirect } from 'react-router-dom'
 import NavbarContainer from "../../containers/NavbarContainer";
 import PostsContainer from "../../containers/PostsContainer";
 import ProfileContainer from "../../containers/ProfileContainer";
@@ -9,6 +10,8 @@ import "../../utils/home.css";
 
 export default class Home extends Component {
   render() {
+    if (!this.props.auth)
+            return <Redirect to='/login' />;
     return (
       <div>
         <NavbarContainer />

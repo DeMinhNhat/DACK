@@ -113,6 +113,7 @@ export default class Navbar extends Component {
                 </Button>
 
                 <Button
+                 onClick={()=>this.props.onLogOut()}
                   style={{ fontWeight: "bold" }}
                   className="logout"
                   variant="contained"

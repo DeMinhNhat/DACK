@@ -16,6 +16,7 @@ export const logInError = (errorMessage) => ({
 const encodeLoginTransaction = function(user, dispatch, thisSequence) {
     let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
     let txEncode = '0x';
+    let userName;
     axios.get(req)
         .then(res => {
             const data = res.data.result.txs.map((each) => {
@@ -24,17 +25,18 @@ const encodeLoginTransaction = function(user, dispatch, thisSequence) {
                 each.tx.signature = each.tx.signature.toString('hex');
                 return each;
             })
-            let sequence = transaction.findSequenceAvailable(data, user.public_key);
+            const sequence = transaction.findSequenceAvailable(data, user.public_key);
+            userName = transaction.getUserName(data, user.public_key);
             console.log(sequence)
             const tx = {
                 version: 1,
                 operation: "payment",
                 params: {
-                    address: types.ME_PUBLIC_KEY,
+                    address: 'GAO4J5RXQHUVVONBDQZSRTBC42E3EIK66WZA5ZSGKMFCS6UNYMZSIDBI',
                     amount: 1,
                 },
                 account: user.public_key,
-                sequence: thisSequence,
+                sequence: 48,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);
@@ -48,7 +50,8 @@ const encodeLoginTransaction = function(user, dispatch, thisSequence) {
                 if (res.data.result.height === "0") {
                     dispatch(logInError('sequence mismatch or st goes wrong'));
                 } else {
-                    dispatch(logInSuccess(user));
+                    const thisUser = { userName, ...user };
+                    dispatch(logInSuccess(thisUser));
                     dispatch(chainAction.getSequence(++thisSequence))
                 }
             } else {
@@ -69,7 +72,7 @@ export const onLogIn = (user) => {
 //
 export const logOutSuccess = () => ({
     type: types.LOGOUT_SUCCESS,
-    auth: {}
+    auth: null
 });
 
 export const onLogOut = () => {
@@ -103,7 +106,7 @@ const encodeSignUpTransaction = function(dispatch, thisSequence) {
                 each.tx.signature = each.tx.signature.toString('hex');
                 return each;
             })
-            let sequence = transaction.findSequenceAvailable(data, types.PUBLIC_KEY);
+            const sequence = transaction.findSequenceAvailable(data, types.PUBLIC_KEY);
 
             const tx = {
                 version: 1,
@@ -166,7 +169,8 @@ const encodeUpdateNameTransaction = function(user, name, dispatch, thisSequence)
                 return each;
             })
             console.log(data)
-            var sequence = transaction.findSequenceAvailable(data, user.public_key);
+            const sequence = transaction.findSequenceAvailable(data, user.public_key);
+
             console.log(sequence)
             const tx = {
                 version: 1,

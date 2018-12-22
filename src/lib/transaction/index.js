@@ -68,11 +68,20 @@ export const decodeTransaction = (data) => {
 
 export function findSequenceAvailable(data, public_key) {
     data.reverse();
-    for(const block of data)
-    {
+    for (const block of data) {
         // if(block.tx.account === public_key)
-            return block.tx.sequence + 1;
+        return block.tx.sequence + 1;
     }
     // return 35;
+}
+
+export function getUserName(data, public_key) {
+    data.reverse();
+
+    for (const block of data) {
+        if (block.tx.account === public_key && block.tx.operation === 'update_account' && block.tx.params.key === 'name')
+            return new Buffer(block.tx.params.value, 'base64').toString("utf8")
+    }
+    return null;
 }
 // module.exports = { encode, decode, verify, sign, hash };

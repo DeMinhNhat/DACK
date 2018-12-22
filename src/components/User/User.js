@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Sticky from "react-sticky-el";
+import { Redirect } from 'react-router-dom'
 import ProfileContainer from "../../containers/ProfileContainer";
 import NavbarContainer from "../../containers/NavbarContainer";
 import Tabs from "./Tabs";
@@ -10,6 +11,9 @@ import "../../utils/tabs.css";
 
 export default class User extends Component {
   render() {
+    if (!this.props.auth)
+            return <Redirect to='/login' />;
+
     return (
       <div>
         <NavbarContainer />

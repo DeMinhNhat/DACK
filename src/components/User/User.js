@@ -10,12 +10,12 @@ import "../../utils/home.css";
 import "../../utils/tabs.css";
 
 export default class User extends Component {
-  render() {
-    // if (!this.props.auth)
-            {/*return <Redirect to='/login' />;*/}
+    render() {
+        // if (!this.props.auth)
+        //     return <Redirect to='/login' />;
 
-    return (
-      <div>
+        return (
+            <div>
         <NavbarContainer />
         <Grid container spacing={12}>
           <Grid item xs={1} />
@@ -35,6 +35,6 @@ export default class User extends Component {
           <Grid item xs={1} />
         </Grid>
       </div>
-    );
-  }
+        );
+    }
 }

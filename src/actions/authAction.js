@@ -72,7 +72,7 @@ export const onLogIn = (user) => {
 //
 export const logOutSuccess = () => ({
     type: types.LOGOUT_SUCCESS,
-    auth: null
+    auth: {}
 });
 
 export const onLogOut = () => {

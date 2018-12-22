@@ -9,11 +9,12 @@ import ProfileContainer from "../../containers/ProfileContainer";
 import "../../utils/home.css";
 
 export default class Home extends Component {
-  render() {
-    // if (!this.props.auth)
-            // return <Redirect to='/login' />;
-    return (
-      <div>
+    render() {
+        // if (this.props.auth.isUserSignedIn === false)
+        //     return <Redirect to='/login' />;
+          
+        return (
+            <div>
         <NavbarContainer />
         <Grid container spacing={12}>
           <Grid item xs={1} />
@@ -33,6 +34,6 @@ export default class Home extends Component {
           <Grid item xs={2} />
         </Grid>
       </div>
-    );
-  }
+        );
+    }
 }

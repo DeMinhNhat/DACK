@@ -31,6 +31,16 @@ button.chirp {
     margin: 5px;
 }
 
+button.logout {
+    display: inline-block;
+    cursor: pointer;
+    padding: 13px 20px;
+    font-size: 12px;
+    text-decoration: none;
+    background-color: #4AB3F4;
+    margin: 5px;
+}
+
 button.chirp:hover {
     background-color: #1DA1F2;
 }

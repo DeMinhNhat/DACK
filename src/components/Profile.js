@@ -19,7 +19,6 @@ export default class Profile extends Component {
       user: {
         avatar: "https://img.icons8.com/metro/1600/github.png",
         name: "Tokama",
-        about: "I am a professional, hehe",
         tweetNum: 3,
         followingNum: 7,
         followerNum: 5,
@@ -32,15 +31,13 @@ export default class Profile extends Component {
 
   handleChange = (e) => {
     let name =this.state.user.name;
-    let about = this.state.user.about;
 
-    [e.target.name] === "name" ? name = e.target.value : about = e.target.value;
+    name = e.target.value ;
 
     this.setState({
       user :{
         avatar: this.state.user.avatar,
         name: name,
-        about: about,
         tweetNum: this.state.user.tweetNum,
         followingNum: this.state.user.followingNum,
         followerNum: this.state.user.followerNum,
@@ -54,7 +51,6 @@ export default class Profile extends Component {
       user :{
         avatar: this.state.user.avatar,
         name: this.state.user.name,
-        about: this.state.user.about,
         tweetNum: this.state.user.tweetNum,
         followingNum: this.state.user.followingNum,
         followerNum: this.state.user.followerNum,
@@ -73,7 +69,6 @@ export default class Profile extends Component {
       user :{
         avatar: this.state.user.avatar,
         name: this.state.user.name,
-        about: this.state.user.about,
         tweetNum: this.state.user.tweetNum,
         followingNum: this.state.user.followingNum,
         followerNum: this.state.user.followerNum,
@@ -115,11 +110,6 @@ export default class Profile extends Component {
                   </div>
                 </div>
                 <br class="clearBoth" />
-              </div>
-            }
-            subheader={
-              <div className={this.state.user.readOnly ? 'profile-about-readOnly' : 'profile-about'}>
-                <TextField name='about' disabled={this.state.user.readOnly} value={this.state.user.about} onChange={e => this.handleChange(e)}/>
               </div>
             }
           />

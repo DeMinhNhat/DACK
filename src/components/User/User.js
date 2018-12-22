@@ -11,8 +11,8 @@ import "../../utils/tabs.css";
 
 export default class User extends Component {
   render() {
-    if (!this.props.auth)
-            return <Redirect to='/login' />;
+    // if (!this.props.auth)
+            {/*return <Redirect to='/login' />;*/}
 
     return (
       <div>

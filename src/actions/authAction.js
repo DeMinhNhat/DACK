@@ -36,7 +36,7 @@ const encodeLoginTransaction = function(user, dispatch, thisSequence) {
                     amount: 1,
                 },
                 account: user.public_key,
-                sequence: 48,
+                sequence: 49,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);

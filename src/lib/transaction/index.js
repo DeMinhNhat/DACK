@@ -80,7 +80,7 @@ export function getUserName(data, public_key) {
 
     for (const block of data) {
         if (block.tx.account === public_key && block.tx.operation === 'update_account' && block.tx.params.key === 'name')
-            return new Buffer(block.tx.params.value, 'base64').toString("utf8")
+            return block.tx.params.value.toString("utf8")
     }
     return null;
 }

@@ -1,27 +1,25 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Sticky from "react-sticky-el";
-import { Redirect } from 'react-router-dom'
-import ProfileContainer from "../../containers/ProfileContainer";
-import NavbarContainer from "../../containers/NavbarContainer";
+import { Redirect } from "react-router-dom";
+import Profile from "./../Profile";
+import Navbar from "./../Navbar";
 import Tabs from "./Tabs";
-
 import "../../utils/home.css";
 import "../../utils/tabs.css";
 
 export default class User extends Component {
-    render() {
-        // if (!this.props.auth)
-        //     return <Redirect to='/login' />;
+  render() {
+    if (!this.props.auth.isUserSignedIn) return <Redirect to="/login" />;
 
-        return (
-            <div>
-        <NavbarContainer />
+    return (
+      <div>
+        <Navbar auth={this.props.auth} onLogOut={this.props.onLogOut} onPost={this.props.onPost} />
         <Grid container spacing={12}>
           <Grid item xs={1} />
           <Grid className="grid" item xs={3}>
             <Sticky>
-              <ProfileContainer />
+              <Profile auth={this.props.auth} onUpdateName={this.props.onUpdateName} />
             </Sticky>
           </Grid>
           <Grid
@@ -35,6 +33,6 @@ export default class User extends Component {
           <Grid item xs={1} />
         </Grid>
       </div>
-        );
-    }
+    );
+  }
 }

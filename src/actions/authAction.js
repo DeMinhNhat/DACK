@@ -1,7 +1,9 @@
 import axios from "axios";
+import vstruct from "varstruct";
 import * as types from "../constants";
 import * as transaction from "../lib/transaction";
 import * as chainAction from "./chainAction";
+import * as v1 from "../lib/transaction/v1";
 
 export const logInSuccess = (user) => ({
     type: types.LOGIN_SUCCESS,
@@ -36,7 +38,7 @@ const encodeLoginTransaction = function(user, dispatch, thisSequence) {
                     amount: 1,
                 },
                 account: user.public_key,
-                sequence: 50,
+                sequence: thisSequence - 1,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);
@@ -148,8 +150,9 @@ export const onSignUp = () => {
     }
 };
 //
-export const updateNameSuccess = () => ({
+export const updateNameSuccess = (user) => ({
     type: types.UPDATE_NAME_SUCCESS,
+    auth: user
 });
 
 export const updateNameError = (errorMessage) => ({
@@ -177,10 +180,10 @@ const encodeUpdateNameTransaction = function(user, name, dispatch, thisSequence)
                 operation: "update_account",
                 params: {
                     key: 'name',
-                    value: Buffer.from(name, 'utf8'),
+                    value: Buffer.from(name, 'utf8')
                 },
                 account: user.public_key,
-                sequence: 52,
+                sequence: thisSequence - 1,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);
@@ -194,7 +197,8 @@ const encodeUpdateNameTransaction = function(user, name, dispatch, thisSequence)
                 if (res.data.result.height === "0") {
                     dispatch(updateNameError('sequence mismatch'));
                 } else {
-                    dispatch(updateNameSuccess());
+                    const thisUser = { ...user, name }
+                    dispatch(updateNameSuccess(thisUser));
                     dispatch(chainAction.getSequence(++thisSequence))
                 }
             } else {

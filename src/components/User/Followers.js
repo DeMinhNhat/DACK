@@ -25,30 +25,15 @@ export default class Followers extends Component {
   }
 }
 
-// hardcode to test :V
 const people = [
   {
     img:
       "http://img.bongdanet.vn/application/admin/image/18.12.2017/Kaka_-_giai_nghe.jpg",
     name: "Kaka",
-    university: "KHTN"
   },
   {
     img:
       "http://img.bongdanet.vn/application/admin/image/18.12.2017/Kaka_-_giai_nghe.jpg",
     name: "Messi",
-    university: "BK"
-  },
-  {
-    img:
-      "http://img.bongdanet.vn/application/admin/image/18.12.2017/Kaka_-_giai_nghe.jpg",
-    name: "CR7",
-    university: "KHTN"
-  },
-  {
-    img:
-      "http://img.bongdanet.vn/application/admin/image/18.12.2017/Kaka_-_giai_nghe.jpg",
-    name: "CR7",
-    university: "Havard"
   }
 ];

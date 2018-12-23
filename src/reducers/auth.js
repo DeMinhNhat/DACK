@@ -17,6 +17,11 @@ export const auth = (state = {}, action) => {
                 ...action.auth,
                 isUserSignedIn: true
             };
+        case types.UPDATE_NAME_SUCCESS:
+            return {
+                ...action.auth,
+                isUserSignedIn: true
+            };
         default:
             return state;
     }

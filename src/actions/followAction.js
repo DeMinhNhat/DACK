@@ -24,13 +24,14 @@ const encodeFollowTransaction = function(user, publicKey, dispatch, thisSequence
                 return each;
             })
             let sequence = transaction.findSequenceAvailable(data, user.public_key);
+            let addresses = [publicKey];
             console.log(`sequence: ${sequence}`);
             const tx = {
                 version: 1,
                 operation: "update_account",
                 params: {
                     key: 'followings',
-                    value: publicKey
+                    // value: Buffer.from(base32.encode())
                 },
                 account: user.public_key,
                 sequence: thisSequence,

@@ -13,76 +13,53 @@ import { PIC } from "../constants";
 import "../utils/profile.css";
 
 export default class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {
-        avatar: "https://img.icons8.com/metro/1600/github.png",
-        name: this.props.auth.userName,
-        tweetNum: 3,
-        followingNum: 7,
-        followerNum: 5,
-        readOnly: true
-      }
-    };
-
-
-  }
-
-  handleChange = (e) => {
-    let name =this.state.user.name;
-
-    name = e.target.value ;
-
-    this.setState({
-      user :{
-        avatar: this.state.user.avatar,
-        name: name,
-        tweetNum: this.state.user.tweetNum,
-        followingNum: this.state.user.followingNum,
-        followerNum: this.state.user.followerNum,
-        readOnly: false
-      }
-    })
-}
-
-  editInfo =() => {
-    this.setState({
-      user :{
-        avatar: this.state.user.avatar,
-        name: this.state.user.name,
-        tweetNum: this.state.user.tweetNum,
-        followingNum: this.state.user.followingNum,
-        followerNum: this.state.user.followerNum,
-        readOnly: false
-      }
-    })
-  }
-
-  saveInfo =(e) => {
-    e.preventDefault();
-    const form = {
-     name: this.state.user.name,
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: {
+                readOnly: true,
+                name: this.props.auth.userName,
+                avatar: "https://media.ngoisao.vn/resize_580x1100/news/2016/12/07/ngoc-trinh-vong-1-xuong-cap-ngoisaovn-26-ngoisao.vn-w550-h787.stamp2.jpg"
+            }
+        };
     }
 
+    handleChange = (e) => {
+        this.setState({
+            user: {
+                readOnly: false,
+                name: e.target.value,
+                avatar: this.state.user.avatar
+            }
+        })
+    }
 
-    this.setState({
-      user :{
-        avatar: this.state.user.avatar,
-        name: this.state.user.name,
-        tweetNum: this.state.user.tweetNum,
-        followingNum: this.state.user.followingNum,
-        followerNum: this.state.user.followerNum,
-        readOnly: true
-      }
-    })
-    
-    this.props.onUpdateName(this.state.user.name);
-  }
+    editInfo = () => {
+        this.setState({
+            user: {
+                readOnly: false,
+                name: this.state.user.name,
+                avatar: this.state.user.avatar
+            }
+        })
+    }
 
-  render() {
-    return (
-      <Card className="profile-card">
+    saveInfo = (e) => {
+        e.preventDefault();
+
+        this.setState({
+            user: {
+                readOnly: true,
+                name: this.state.user.name,
+                avatar: this.state.user.avatar
+            }
+        })
+        this.props.onUpdateName(this.state.user.name);
+    }
+
+    render() {
+        return (
+            <Card className="profile-card">
         <form>
           <CardHeader
             className="profile-card-header"
@@ -124,11 +101,11 @@ export default class Profile extends Component {
               style={{ flex: 1 }}
             />
             <Avatar className="profile-num-avatar profile-item">
-              {this.state.user.tweetNum}
+              4
             </Avatar>
           </ListItem>
 
-          <Link to="followers" className="linkFollowers">
+          <Link to="/user" className="linkFollowers">
             <ListItem className="profile-item" button>
               <ListItemText
                 className="profile-item"
@@ -137,12 +114,12 @@ export default class Profile extends Component {
               />
 
               <Avatar className="profile-num-avatar profile-item">
-                {this.state.user.followerNum}
+                5
               </Avatar>
             </ListItem>
           </Link>
 
-          <Link to="following" className="linkFollowing">
+          <Link to="/user" className="linkFollowing">
             <ListItem className="profile-item" button>
               <ListItemText
                 className="profile-info"
@@ -150,12 +127,12 @@ export default class Profile extends Component {
                 style={{ flex: 1 }}
               />
               <Avatar className="profile-num-avatar profile-item">
-                {this.state.user.followingNum}
+                6
               </Avatar>
             </ListItem>
           </Link>
         </CardContent>
       </Card>
-    );
-  }
+        );
+    }
 }

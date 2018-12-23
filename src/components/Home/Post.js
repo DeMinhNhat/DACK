@@ -7,30 +7,11 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import InputBase from "@material-ui/core/InputBase";
+import Button from "@material-ui/core/Button";
 
 import "../../utils/posts.css";
 
 export default class Post extends Component {
-  toggleLike = () => {
-    this.props.toggleLike(this.props.index);
-  };
-
-  toggleLove = () => {
-    this.props.toggleLove(this.props.index);
-  };
-
-  toggleHaha = () => {
-    this.props.toggleHaha(this.props.index);
-  };
-
-  onShare = () => {
-    this.props.onShare(this.props.index);
-  };
-
-  onComment = () => {
-    this.props.onComment(this.props.index);
-  };
-
   render() {
     return (
       <Card className="tlp-card">
@@ -45,10 +26,12 @@ export default class Post extends Component {
           title={
             <div>
               <div className="tlp-username">{this.props.user}</div>
-              <p className="tlp-time">
-                {" "}
-                <i class="far fa-clock" /> {this.props.time}{" "}
-              </p>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                      >
+                        Follow
+                    </Button>
             </div>
           }
         />

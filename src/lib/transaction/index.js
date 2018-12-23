@@ -69,19 +69,20 @@ export const decodeTransaction = (data) => {
 export function findSequenceAvailable(data, public_key) {
     data.reverse();
     for (const block of data) {
-        // if(block.tx.account === public_key)
         return block.tx.sequence + 1;
     }
-    // return 35;
 }
 
 export function getUserName(data, public_key) {
     data.reverse();
-
+    let max = 1;
+    let name = null;
     for (const block of data) {
-        if (block.tx.account === public_key && block.tx.operation === 'update_account' && block.tx.params.key === 'name')
-            return block.tx.params.value.toString("utf8")
+        if (block.tx.sequence > max && block.tx.account === public_key && block.tx.operation === 'update_account' && block.tx.params.key === 'name') {
+            name = block.tx.params.value;
+            // name = new TextDecoder("utf8").decode(block.tx.params.value);
+            max = block.tx.sequence;
+        }
     }
-    return null;
+    return name;
 }
-// module.exports = { encode, decode, verify, sign, hash };

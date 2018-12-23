@@ -34,6 +34,12 @@ export default class Navbar extends Component {
         this.setState({ open: false });
     };
 
+    handleLogin = (event) => {
+        event.preventDefault();
+        let post = event.target.post.value;
+        this.props.onPost(post);
+    }
+
     render() {
         return (
             <div>
@@ -133,11 +139,12 @@ export default class Navbar extends Component {
             aria-labelledby="form-dialog-title"
           >
             <DialogTitle id="form-dialog-title">Chirping</DialogTitle>
+            <form onSubmit = {(e)=>this.handleLogin(e)} >
             <DialogContent
               fullWidth
               style={{
-                height: "160px",
-                width: "500px"
+                height: "120px",
+                width: "360px"
               }}
             >
               <TextField
@@ -148,19 +155,21 @@ export default class Navbar extends Component {
                 variant="outlined"
                 multiline={true}
                 rows={1}
+                name='post'
                 rowsMax={6}
               />
             </DialogContent>
             <DialogActions>
               <Button
-                onClick={()=>this.props.onPost("tui đang test :3")}
                 className="chirp"
                 variant="contained"
                 color="primary"
+                type="submit"
               >
                 Chirp
               </Button>
             </DialogActions>
+                </form>
           </Dialog>
         </AppBar>
       </div>

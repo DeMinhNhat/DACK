@@ -1,8 +1,8 @@
-import vstruct from "varstruct";
-import base32 from "base32.js";
-import { Keypair } from "stellar-base";
+const vstruct = require('varstruct');
+const base32 = require('base32.js');
+const { Keypair } = require('stellar-base');
 
-const Transaction = vstruct([
+export const Transaction = vstruct([
     { name: 'version', type: vstruct.UInt8 },
     { name: 'account', type: vstruct.Buffer(35) },
     { name: 'sequence', type: vstruct.UInt64BE },
@@ -12,16 +12,16 @@ const Transaction = vstruct([
     { name: 'signature', type: vstruct.Buffer(64) },
 ]);
 
-const CreateAccountParams = vstruct([
+export const CreateAccountParams = vstruct([
     { name: 'address', type: vstruct.Buffer(35) },
 ]);
 
-const PaymentParams = vstruct([
+export const PaymentParams = vstruct([
     { name: 'address', type: vstruct.Buffer(35) },
     { name: 'amount', type: vstruct.UInt64BE },
 ]);
 
-const PostParams = vstruct([
+export const PostParams = vstruct([
     // Maximum length 65536 in bytes
     { name: 'content', type: vstruct.VarBuffer(vstruct.UInt16BE) },
     // Private share no more than 256 - 1 (me) people
@@ -30,12 +30,17 @@ const PostParams = vstruct([
     { name: 'keys', type: vstruct.VarArray(vstruct.UInt8, vstruct.Buffer(42)) },
 ]);
 
-const UpdateAccountParams = vstruct([
+export const PlainTextContent = vstruct([
+  { name: 'type', type: vstruct.UInt8 },
+  { name: 'text', type: vstruct.VarString(vstruct.UInt16BE) },
+]);
+
+export const UpdateAccountParams = vstruct([
     { name: 'key', type: vstruct.VarString(vstruct.UInt8) },
     { name: 'value', type: vstruct.VarBuffer(vstruct.UInt16BE) },
 ]);
 
-const InteractParams = vstruct([
+export const InteractParams = vstruct([
     // Post or comment (or something else?)
     { name: 'object', type: vstruct.Buffer(32) },
     // Encrypt with same post key (if any)

@@ -6,9 +6,8 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import { Link } from "react-router-dom";
-import SignUp from "./SignUp"
 
-import "../../utils/login.css";
+import "../utils/login.css";
 
 const ContentLeft = () => {
     return (
@@ -31,7 +30,7 @@ const ContentLeft = () => {
 
 // public_key: "GA6GMNHXZ332WAYNW3Q2AJ7YKE5WFYCTOAFJLNEFARHKWTMT7HQR2ZIK",
 // private_key: "SC3PILQTZKA7EYDVUV5VV2LEV4TI4O7DVLR5F7JG3JVENBEBHMLUXMP2",
-// test
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -66,8 +65,8 @@ class Login extends Component {
 
     render() {
 
-        // if (this.props.auth.isUserSignedIn)
-        // return <Redirect to='/home' />;
+        if (this.props.auth.isUserSignedIn)
+        return <Redirect to='/home' />;
 
         return (
             <div>
@@ -131,7 +130,6 @@ class Login extends Component {
           onClose={this.onClosePost}
           aria-labelledby="form-dialog-title"
         >
-          <SignUp />
         </Dialog>
 
       </div>

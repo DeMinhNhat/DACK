@@ -2,6 +2,7 @@ import axios from "axios";
 import * as types from "../constants";
 import * as transaction from "../lib/transaction";
 import * as chainAction from "./chainAction";
+import * as v1 from "../lib/transaction/v1";
 
 export const postSuccess = () => ({ type: types.POST_SUCCESS });
 
@@ -24,21 +25,20 @@ const encodePostTransaction = function(user, content, dispatch, thisSequence) {
             console.log(data);
             var sequence = transaction.findSequenceAvailable(data, user.public_key);
             console.log(`sequence: ${sequence}`);
-            const thisContent = {
-                type: 'Buffer',
-                data: Buffer.from(content, 'utf8'),
-            }
+
+            const PlainTextContent = v1.PlainTextContent.encode({ type: 1, text: content })
             const tx = {
                 version: 1,
                 operation: "post",
                 params: {
-                    content: Buffer.from(thisContent, 'utf8'),
+                    content: PlainTextContent,
                     keys: []
                 },
                 account: user.public_key,
-                sequence: thisSequence,
+                sequence: thisSequence - 1,
                 memo: Buffer.alloc(0),
             }
+
             transaction.sign(tx, user.private_key);
             txEncode = '0x' + transaction.encode(tx).toString('hex');
 

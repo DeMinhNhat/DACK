@@ -11,5 +11,4 @@ export default connect(mapStateToProps, {
     onPost: postAction.onPost,
     onFollow: followAction.onFollow,
     onLogOut: authAction.onLogOut,
-    onFollow: followAction.onFollow,
 })(User);

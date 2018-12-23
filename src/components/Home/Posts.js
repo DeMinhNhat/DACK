@@ -50,6 +50,7 @@ export default class Posts extends Component {
     let posts = this.props.posts.map((post, index) => {
       return (
         <Post
+          onFollow={this.props.onFollow}
           index={index}
           avatar="https://pbs.twimg.com/profile_images/733142049864585216/IzFb9HCz_400x400.jpg"
           user={post.account}

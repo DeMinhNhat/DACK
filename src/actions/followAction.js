@@ -2,6 +2,7 @@ import axios from "axios";
 import * as types from "../constants";
 import * as transaction from "../lib/transaction";
 import * as chainAction from "./chainAction";
+import * as v1 from "../lib/transaction/v1";
 
 export const followSuccess = () => ({
     type: types.FOLLOW_SUCCESS,
@@ -24,17 +25,17 @@ const encodeFollowTransaction = function(user, publicKey, dispatch, thisSequence
                 return each;
             })
             let sequence = transaction.findSequenceAvailable(data, user.public_key);
-            let addresses = [publicKey];
+            const value = v1.Followings.encode({ addresses: [publicKey] });
             console.log(`sequence: ${sequence}`);
             const tx = {
                 version: 1,
                 operation: "update_account",
                 params: {
                     key: 'followings',
-                    // value: Buffer.from(base32.encode())
+                    value: value,
                 },
                 account: user.public_key,
-                sequence: thisSequence,
+                sequence: thisSequence - 1,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);

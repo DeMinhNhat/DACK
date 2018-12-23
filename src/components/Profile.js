@@ -94,6 +94,7 @@ export default class Profile extends Component {
           />
         </form>
         <CardContent>
+       <Link to="/user" className="linkFollowers">
           <ListItem className="profile-item" button>
             <ListItemText
               className="profile-item"
@@ -104,6 +105,7 @@ export default class Profile extends Component {
               4
             </Avatar>
           </ListItem>
+              </Link>
 
           <Link to="/user" className="linkFollowers">
             <ListItem className="profile-item" button>

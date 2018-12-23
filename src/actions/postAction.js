@@ -94,9 +94,7 @@ export const retrievePost = () => {
         axios.get(link)
             .then((res) => {
                 if (res.data.error === undefined) {
-                    if (res.data.result.block.data.txs === null)
-                        dispatch(retrievePostError(`this block (${maxHeight}) has no operation`));
-                    else {
+                    if (res.data.result.block.data.txs !== null) {
                         const raw = res.data.result.block.data.txs[0];
                         const buf = Buffer.from(raw, 'base64');
                         const post = transaction.decode(buf);
@@ -104,8 +102,10 @@ export const retrievePost = () => {
                             post.params.content = new Buffer(post.params.content, 'utf8').toString("utf8");
                             dispatch(retrievePostSuccess(post));
                         } else {
-                            dispatch(retrievePostError(`this block (${maxHeight}) is not post operation`));
+                            // dispatch(retrievePostError(`this block (${maxHeight}) is not post operation`));
                         }
+                    } else {
+                        // dispatch(retrievePostError(`this block (${maxHeight}) has no operation`));
                     }
                     dispatch(getHeight(++maxHeight));
                 } else {

@@ -30,6 +30,7 @@ export default class Home extends Component {
             <Posts
               posts={this.props.posts}
               retrievePost={this.props.retrievePost}
+              onFollow={this.props.onFollow}
             />
           </Grid>
           <Grid item xs={2} />

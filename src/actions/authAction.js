@@ -180,7 +180,8 @@ const encodeUpdateNameTransaction = function(user, name, dispatch, thisSequence)
                 operation: "update_account",
                 params: {
                     key: 'name',
-                    value: Buffer.from(name, 'utf8')
+                    // value: Buffer.from(name, 'utf8'),
+                    value: Buffer.from(name),
                 },
                 account: user.public_key,
                 sequence: thisSequence - 1,

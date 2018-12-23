@@ -26,12 +26,11 @@ export default class Post extends Component {
           title={
             <div>
               <div className="tlp-username">{this.props.user}</div>
-                      <Button
-                        variant="outlined"
-                        color="primary"
-                      >
-                        Follow
-                    </Button>
+              <Button
+              onClick={()=>this.props.onFollow(this.props.user)}
+              variant="outlined" color="primary">
+                Follow
+              </Button>
             </div>
           }
         />

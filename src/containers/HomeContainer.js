@@ -7,7 +7,8 @@ import * as postAction from "../actions/postAction";
 const mapStateToProps = state => ({ auth: state.auth, posts: state.posts });
 
 export default connect(mapStateToProps, {
-    onUpdateName:authAction.onUpdateName,
+    onUpdateName: authAction.onUpdateName,
+    onUpdatePic: authAction.onUpdatePic,
     onLogOut: authAction.onLogOut,
     onPost: postAction.onPost,
     retrievePost: postAction.retrievePost,

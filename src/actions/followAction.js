@@ -3,6 +3,7 @@ import * as types from "../constants";
 import * as transaction from "../lib/transaction";
 import * as chainAction from "./chainAction";
 import * as v1 from "../lib/transaction/v1";
+import base32 from "base32.js";
 
 export const followSuccess = () => ({
     type: types.FOLLOW_SUCCESS,
@@ -14,7 +15,7 @@ export const followError = (errorMessage) => ({
 });
 
 const encodeFollowTransaction = function(user, publicKey, dispatch, thisSequence) {
-    let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
+    let req = "https://dragonfly.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
     let txEncode = '0x';
     axios.get(req)
         .then(res => {
@@ -25,14 +26,17 @@ const encodeFollowTransaction = function(user, publicKey, dispatch, thisSequence
                 return each;
             })
             let sequence = transaction.findSequenceAvailable(data, user.public_key);
-            const value = v1.Followings.encode({ addresses: [publicKey] });
+
+            let arr = [Buffer.from(base32.decode(publicKey))];
+            arr = v1.Followings.encode({ addresses: arr })
+
             console.log(`sequence: ${sequence}`);
             const tx = {
                 version: 1,
                 operation: "update_account",
                 params: {
                     key: 'followings',
-                    value: value,
+                    value: Buffer.from(arr),
                 },
                 account: user.public_key,
                 sequence: thisSequence - 1,
@@ -66,5 +70,37 @@ export const onFollow = (publicKey) => {
         const user = { public_key, private_key };
         const thisSequence = getState().sequence
         encodeFollowTransaction(user, publicKey, dispatch, thisSequence);
+    };
+};
+//
+export const getFollowingsSuccess = followings => ({
+    type: types.GET_FOLLOWING_SUCCESS,
+    followings: followings
+});
+
+export const getFollowingsError = errorMessage => ({
+    type: types.GET_FOLLOWING_ERROR,
+    errorMessage
+});
+
+export const getFollowings = (user) => {
+    return (dispatch, getState) => {
+        let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
+        axios.get(req)
+            .then(res => {
+                const data = res.data.result.txs.map((each) => {
+                    each.tx = transaction.decodeTransaction(each.tx);
+                    each.tx.memo = each.tx.memo.toString();
+                    each.tx.signature = each.tx.signature.toString('hex');
+                    return each;
+                })
+                let followings = transaction.getFollowingTracnsaction(data, user.public_key);
+
+                followings ? dispatch(getFollowingsSuccess(followings)) : dispatch(getFollowingsError('st wrongs'));
+
+            })
+            .catch((err) => {
+                dispatch(getFollowingsError(err));
+            });
     };
 };

@@ -1,9 +1,7 @@
 import axios from "axios";
-import vstruct from "varstruct";
 import * as types from "../constants";
 import * as transaction from "../lib/transaction";
 import * as chainAction from "./chainAction";
-import * as v1 from "../lib/transaction/v1";
 
 export const logInSuccess = (user) => ({
     type: types.LOGIN_SUCCESS,
@@ -16,7 +14,21 @@ export const logInError = (errorMessage) => ({
 });
 
 const encodeLoginTransaction = function(user, dispatch, thisSequence) {
-    let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
+
+    axios.all([
+            axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=1"),
+            axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=2"),
+            axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=3"),
+            axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=4"),
+            axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=5"),
+            axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=6"),
+            axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=6"),
+        ])
+        .then(axios.spread((Res1, Res2, Res3, Res4, Res5, Res6) => {
+            // do something with both responses
+        }));
+
+    let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=5";
     let txEncode = '0x';
     let userName;
     axios.get(req)
@@ -230,7 +242,7 @@ export const updatePicError = (errorMessage) => ({
 });
 
 const encodeUpdatePicTransaction = function(user, pic, dispatch, thisSequence) {
-    let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
+    let req = "https://zebra.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
     let txEncode = '0x';
     axios.get(req)
         .then(res => {
@@ -246,10 +258,10 @@ const encodeUpdatePicTransaction = function(user, pic, dispatch, thisSequence) {
                 operation: "update_account",
                 params: {
                     key: 'picture',
-                    value: Buffer.from(pic, 'utf8'),
+                    value: Buffer.from(pic, 'base64')
                 },
                 account: user.public_key,
-                sequence: thisSequence,
+                sequence: thisSequence - 1,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);

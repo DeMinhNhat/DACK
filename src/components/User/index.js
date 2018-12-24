@@ -19,7 +19,7 @@ export default class User extends Component {
           <Grid item xs={1} />
           <Grid className="grid" item xs={3}>
             <Sticky>
-              <Profile auth={this.props.auth} onUpdateName={this.props.onUpdateName} />
+              <Profile auth={this.props.auth} onUpdateName={this.props.onUpdateName} onUpdatePic={this.props.onUpdatePic} />
             </Sticky>
           </Grid>
           <Grid
@@ -28,7 +28,7 @@ export default class User extends Component {
             item
             xs={7}
           >
-            <Tabs />
+            <Tabs getFollowings={this.props.getFollowings} user={this.props.auth} />
           </Grid>
           <Grid item xs={1} />
         </Grid>

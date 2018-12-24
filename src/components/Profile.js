@@ -19,7 +19,7 @@ export default class Profile extends Component {
             user: {
                 readOnly: true,
                 name: this.props.auth.userName,
-                avatar: "https://media.ngoisao.vn/resize_580x1100/news/2016/12/07/ngoc-trinh-vong-1-xuong-cap-ngoisaovn-26-ngoisao.vn-w550-h787.stamp2.jpg"
+                avatar: "https://img.icons8.com/metro/1600/github.png"
             }
         };
     }
@@ -89,6 +89,9 @@ export default class Profile extends Component {
                   </div>
                 </div>
                 <br class="clearBoth" />
+                <Button variant="outlined" color="primary" size="small" className="edit" onClick={()=>this.props.onUpdatePic(PIC)}>
+                      Update Pic
+                  </Button>
               </div>
             }
           />

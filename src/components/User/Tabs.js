@@ -40,7 +40,7 @@ export default class InfoTabs extends React.Component {
         )}
         {this.state.value === "Following" && (
           <TabContainer>
-            <Following />
+            <Following getFollowings={this.props.getFollowings}  user={this.props.user} />
           </TabContainer>
         )}
       </div>

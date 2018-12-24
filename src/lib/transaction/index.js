@@ -87,3 +87,9 @@ export function getUserName(data, public_key) {
     }
     return name;
 }
+
+export function getFollowingTracnsaction(data, public_key) {
+    const followings = data.filter(block => block.tx.account === public_key &&
+        block.tx.operation === 'update_account' && block.tx.params.key === 'followings');
+    return followings;
+}

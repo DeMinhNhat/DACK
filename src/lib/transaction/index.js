@@ -2,6 +2,7 @@ import vstruct from "varstruct";
 import crypto from "crypto";
 import { Keypair } from "stellar-base";
 import * as v1 from "./v1";
+import axios from "axios";
 
 export const getKey = () => {
     return Keypair.random();
@@ -79,8 +80,6 @@ export function getUserName(data, public_key) {
     let name = null;
     for (const block of data) {
         if (block.tx.sequence > max && block.tx.account === public_key && block.tx.operation === 'update_account' && block.tx.params.key === 'name') {
-            // name = vstruct.VarBuffer(vstruct.UInt16BE).decode(block.tx.params.value);
-            // name = new Buffer.decode(block.tx.params.value);
             name = new Buffer(block.tx.params.value).toString()
             max = block.tx.sequence;
         }

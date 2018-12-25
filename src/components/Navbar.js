@@ -38,6 +38,7 @@ export default class Navbar extends Component {
         event.preventDefault();
         let post = event.target.post.value;
         this.props.onPost(post);
+        this.onClosePost();
     }
 
     render() {

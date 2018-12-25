@@ -14,34 +14,46 @@ export const logInError = (errorMessage) => ({
 });
 
 const encodeLoginTransaction = function(user, dispatch, thisSequence) {
+    let txEncode = '0x';
+    let userName = null;
 
-    axios.all([
-            axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=1"),
-            axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=2"),
-            axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=3"),
+    Promise.all([
             axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=4"),
             axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=5"),
             axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=6"),
-            axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=6"),
         ])
-        .then(axios.spread((Res1, Res2, Res3, Res4, Res5, Res6) => {
-            // do something with both responses
-        }));
-
-    let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=5";
-    let txEncode = '0x';
-    let userName;
-    axios.get(req)
-        .then(res => {
-            const data = res.data.result.txs.map((each) => {
+        .then(([res1, res2, res3]) => {
+            let data = res3.data.result.txs.map((each) => {
                 each.tx = transaction.decodeTransaction(each.tx);
                 each.tx.memo = each.tx.memo.toString();
                 each.tx.signature = each.tx.signature.toString('hex');
                 return each;
             })
-            const sequence = transaction.findSequenceAvailable(data, user.public_key);
             userName = transaction.getUserName(data, user.public_key);
-            console.log(sequence)
+            console.log(userName);
+
+            if (!userName) {
+                let data = res2.data.result.txs.map((each) => {
+                    each.tx = transaction.decodeTransaction(each.tx);
+                    each.tx.memo = each.tx.memo.toString();
+                    each.tx.signature = each.tx.signature.toString('hex');
+                    return each;
+                })
+                userName = transaction.getUserName(data, user.public_key);
+                console.log(userName);
+            }
+
+            if (!userName) {
+                let data = res1.data.result.txs.map((each) => {
+                    each.tx = transaction.decodeTransaction(each.tx);
+                    each.tx.memo = each.tx.memo.toString();
+                    each.tx.signature = each.tx.signature.toString('hex');
+                    return each;
+                })
+                userName = transaction.getUserName(data, user.public_key);
+                console.log(userName);
+            }
+            //
             const tx = {
                 version: 1,
                 operation: "payment",
@@ -55,7 +67,6 @@ const encodeLoginTransaction = function(user, dispatch, thisSequence) {
             }
             transaction.sign(tx, user.private_key);
             txEncode = '0x' + transaction.encode(tx).toString('hex');
-
             return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
         })
         .then((res) => {
@@ -63,13 +74,15 @@ const encodeLoginTransaction = function(user, dispatch, thisSequence) {
             if (res.data.error === undefined) {
                 if (res.data.result.height === "0") {
                     dispatch(logInError('sequence mismatch or st goes wrong'));
+                    // dispatch(chainAction.getSequence(128))
                 } else {
                     const thisUser = { userName, ...user };
                     dispatch(logInSuccess(thisUser));
-                    dispatch(chainAction.getSequence(++thisSequence))
+                    dispatch(chainAction.getSequence(++thisSequence));
                 }
             } else {
                 dispatch(logInError(res.data.error.message));
+                // dispatch(chainAction.getSequence(128))
             }
         })
         .catch((err) => {
@@ -120,7 +133,7 @@ const encodeSignUpTransaction = function(dispatch, thisSequence) {
                 each.tx.signature = each.tx.signature.toString('hex');
                 return each;
             })
-            const sequence = transaction.findSequenceAvailable(data, types.PUBLIC_KEY);
+            // const sequence = transaction.findSequenceAvailable(data, user.public_key);
 
             const tx = {
                 version: 1,
@@ -183,16 +196,13 @@ const encodeUpdateNameTransaction = function(user, name, dispatch, thisSequence)
                 each.tx.signature = each.tx.signature.toString('hex');
                 return each;
             })
-            console.log(data)
             const sequence = transaction.findSequenceAvailable(data, user.public_key);
 
-            console.log(sequence)
             const tx = {
                 version: 1,
                 operation: "update_account",
                 params: {
                     key: 'name',
-                    // value: Buffer.from(name, 'utf8'),
                     value: Buffer.from(name),
                 },
                 account: user.public_key,
@@ -252,7 +262,8 @@ const encodeUpdatePicTransaction = function(user, pic, dispatch, thisSequence) {
                 each.tx.signature = each.tx.signature.toString('hex');
                 return each;
             })
-            var sequence = transaction.findSequenceAvailable(data, user.public_key);
+            const sequence = transaction.findSequenceAvailable(data, user.public_key);
+
             const tx = {
                 version: 1,
                 operation: "update_account",

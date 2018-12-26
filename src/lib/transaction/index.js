@@ -88,7 +88,9 @@ export function getUserName(data, public_key) {
 }
 
 export function getFollowingTracnsaction(data, public_key) {
-    const followings = data.filter(block => block.tx.account === public_key &&
+    const txs = data.filter(block => block.tx.account === public_key &&
         block.tx.operation === 'update_account' && block.tx.params.key === 'followings');
-    return followings;
+    // let arr = [Buffer.from(base32.decode(publicKey))];
+    // arr = v1.Followings.encode({ addresses: arr })
+    const followings = txs.map(tx => new Buffer(tx.tx.params.value).toString());
 }

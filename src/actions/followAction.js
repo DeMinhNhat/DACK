@@ -85,22 +85,43 @@ export const getFollowingsError = errorMessage => ({
 
 export const getFollowings = (user) => {
     return (dispatch, getState) => {
-        let req = "https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22";
-        axios.get(req)
-            .then(res => {
-                const data = res.data.result.txs.map((each) => {
+        let followings = [];
+        Promise.all([
+                axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=4"),
+                axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=5"),
+                axios.get("https://komodo.forest.network/tx_search?query=%22account=%27" + user.public_key + "%27%22&page=6"),
+            ])
+            .then(([res1, res2, res3]) => {
+                let data = res3.data.result.txs.map((each) => {
                     each.tx = transaction.decodeTransaction(each.tx);
                     each.tx.memo = each.tx.memo.toString();
                     each.tx.signature = each.tx.signature.toString('hex');
                     return each;
                 })
-                let followings = transaction.getFollowingTracnsaction(data, user.public_key);
+                console.log(transaction.getFollowingTracnsaction(data, user.public_key))
+                followings.concat(transaction.getFollowingTracnsaction(data, user.public_key));
 
-                followings ? dispatch(getFollowingsSuccess(followings)) : dispatch(getFollowingsError('st wrongs'));
+                data = res2.data.result.txs.map((each) => {
+                    each.tx = transaction.decodeTransaction(each.tx);
+                    each.tx.memo = each.tx.memo.toString();
+                    each.tx.signature = each.tx.signature.toString('hex');
+                    return each;
+                })
+                followings.concat(transaction.getFollowingTracnsaction(data, user.public_key));
 
+                data = res1.data.result.txs.map((each) => {
+                    each.tx = transaction.decodeTransaction(each.tx);
+                    each.tx.memo = each.tx.memo.toString();
+                    each.tx.signature = each.tx.signature.toString('hex');
+                    return each;
+                })
+                followings.concat(transaction.getFollowingTracnsaction(data, user.public_key));
+            })
+            .then((res) => {
+                dispatch(getFollowingsSuccess(followings));
             })
             .catch((err) => {
-                dispatch(getFollowingsError(err));
+                dispatch(followError(err));
             });
     };
 };

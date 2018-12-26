@@ -39,7 +39,7 @@ const encodeFollowTransaction = function(user, publicKey, dispatch, thisSequence
                     value: Buffer.from(arr),
                 },
                 account: user.public_key,
-                sequence: thisSequence - 1,
+                sequence: thisSequence,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);

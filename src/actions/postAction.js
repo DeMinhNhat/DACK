@@ -35,7 +35,7 @@ const encodePostTransaction = function(user, content, dispatch, thisSequence) {
                     keys: []
                 },
                 account: user.public_key,
-                sequence: thisSequence - 1,
+                sequence: thisSequence,
                 memo: Buffer.alloc(0),
             }
 

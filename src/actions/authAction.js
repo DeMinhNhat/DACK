@@ -14,7 +14,7 @@ export const logInError = (errorMessage) => ({
 });
 
 const encodeLoginTransaction = function(user, dispatch, thisSequence) {
-    let txEncode = '0x';
+    // let txEncode = '0x';
     let userName = null;
 
     Promise.all([
@@ -30,7 +30,6 @@ const encodeLoginTransaction = function(user, dispatch, thisSequence) {
                 return each;
             })
             userName = transaction.getUserName(data, user.public_key);
-            console.log(userName);
 
             if (!userName) {
                 let data = res2.data.result.txs.map((each) => {
@@ -40,7 +39,6 @@ const encodeLoginTransaction = function(user, dispatch, thisSequence) {
                     return each;
                 })
                 userName = transaction.getUserName(data, user.public_key);
-                console.log(userName);
             }
 
             if (!userName) {
@@ -51,40 +49,41 @@ const encodeLoginTransaction = function(user, dispatch, thisSequence) {
                     return each;
                 })
                 userName = transaction.getUserName(data, user.public_key);
-                console.log(userName);
             }
+            const thisUser = { userName, ...user };
+            userName ? dispatch(logInSuccess(thisUser)) : dispatch(logInError('St goes wrong'));
             //
-            const tx = {
-                version: 1,
-                operation: "payment",
-                params: {
-                    address: 'GAO4J5RXQHUVVONBDQZSRTBC42E3EIK66WZA5ZSGKMFCS6UNYMZSIDBI',
-                    amount: 1,
-                },
-                account: user.public_key,
-                sequence: thisSequence - 1,
-                memo: Buffer.alloc(0),
-            }
-            transaction.sign(tx, user.private_key);
-            txEncode = '0x' + transaction.encode(tx).toString('hex');
-            return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
+            // const tx = {
+            //     version: 1,
+            //     operation: "payment",
+            //     params: {
+            //         address: 'GAO4J5RXQHUVVONBDQZSRTBC42E3EIK66WZA5ZSGKMFCS6UNYMZSIDBI',
+            //         amount: 1,
+            //     },
+            //     account: user.public_key,
+            //     sequence: thisSequence - 1,
+            //     memo: Buffer.alloc(0),
+            // }
+            // transaction.sign(tx, user.private_key);
+            // txEncode = '0x' + transaction.encode(tx).toString('hex');
+            // return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
         })
-        .then((res) => {
-            console.log(res)
-            if (res.data.error === undefined) {
-                if (res.data.result.height === "0") {
-                    dispatch(logInError('sequence mismatch or st goes wrong'));
-                    // dispatch(chainAction.getSequence(128))
-                } else {
-                    const thisUser = { userName, ...user };
-                    dispatch(logInSuccess(thisUser));
-                    dispatch(chainAction.getSequence(++thisSequence));
-                }
-            } else {
-                dispatch(logInError(res.data.error.message));
-                // dispatch(chainAction.getSequence(128))
-            }
-        })
+        // .then((res) => {
+        //     console.log(res)
+        //     if (res.data.result !== undefined) {
+        //         if (res.data.result.height === "0") {
+        //             dispatch(logInError('sequence mismatch or st goes wrong'));
+        //             // dispatch(chainAction.getSequence(128))
+        //         } else {
+        //             const thisUser = { userName, ...user };
+        //             dispatch(logInSuccess(thisUser));
+        //             dispatch(chainAction.getSequence(++thisSequence));
+        //         }
+        //     } else {
+        //         dispatch(logInError(res.data.error.message));
+        //         // dispatch(chainAction.getSequence(128))
+        //     }
+        // })
         .catch((err) => {
             dispatch(logInError(err));
         });
@@ -206,7 +205,7 @@ const encodeUpdateNameTransaction = function(user, name, dispatch, thisSequence)
                     value: Buffer.from(name),
                 },
                 account: user.public_key,
-                sequence: thisSequence - 1,
+                sequence: thisSequence,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);
@@ -272,7 +271,7 @@ const encodeUpdatePicTransaction = function(user, pic, dispatch, thisSequence) {
                     value: Buffer.from(pic, 'base64')
                 },
                 account: user.public_key,
-                sequence: thisSequence - 1,
+                sequence: thisSequence,
                 memo: Buffer.alloc(0),
             }
             transaction.sign(tx, user.private_key);
@@ -304,4 +303,57 @@ export const onUpdatePic = (pic) => {
         const thisSequence = getState().sequence
         encodeUpdatePicTransaction(user, pic, dispatch, thisSequence);
     };
+};
+//
+export const paymentSuccess = () => ({
+    type: types.PAYMENT_SUCCESS,
+});
+
+export const paymentError = (errorMessage) => ({
+    type: types.PAYMENT_ERROR,
+    errorMessage
+});
+
+const encodePaymentTransaction = function(dispatch, publicKey, penny, thisSequence, user) {
+    let txEncode = '0x';
+
+    const tx = {
+        version: 1,
+        operation: "payment",
+        params: {
+            address: publicKey,
+            amount: parseInt(penny),
+        },
+        account: user.public_key,
+        sequence: thisSequence,
+        memo: Buffer.alloc(0),
+    }
+    transaction.sign(tx, types.SECRET_KEY);
+    txEncode = '0x' + transaction.encode(tx).toString('hex');
+
+    axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode)
+        .then((res) => {
+            if (res.data.error === undefined) {
+                if (res.data.result.height === "0") {
+                    dispatch(signUpError('sequence mismatch'));
+                } else {
+                    dispatch(paymentSuccess());
+                    dispatch(chainAction.getSequence(++thisSequence))
+                }
+            } else {
+                dispatch(signUpError(res.data.error.message));
+            }
+        })
+        .catch((err) => {
+            dispatch(signUpError(err));
+        });
+}
+
+export const onPayment = (publicKey, penny) => {
+    return (dispatch, getState) => {
+        const thisSequence = getState().sequence;
+        const { public_key, private_key } = getState().auth;
+        const user = { public_key, private_key };
+        encodePaymentTransaction(dispatch, publicKey, penny, thisSequence, user);
+    }
 };

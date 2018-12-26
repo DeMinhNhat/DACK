@@ -13,4 +13,5 @@ export default connect(mapStateToProps, {
     onPost: postAction.onPost,
     retrievePost: postAction.retrievePost,
     onFollow: followAction.onFollow,
+    onPayment: authAction.onPayment,
 })(Home);

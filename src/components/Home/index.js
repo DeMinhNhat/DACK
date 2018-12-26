@@ -18,7 +18,7 @@ export default class Home extends Component {
           <Grid item xs={1} />
           <Grid className="grid" item xs={3}>
             <Sticky>
-              <Profile auth={this.props.auth} onUpdateName={this.props.onUpdateName} onUpdatePic={this.props.onUpdatePic} />
+              <Profile auth={this.props.auth} onPayment={this.props.onPayment} onUpdateName={this.props.onUpdateName} onUpdatePic={this.props.onUpdatePic} />
             </Sticky>
           </Grid>
           <Grid

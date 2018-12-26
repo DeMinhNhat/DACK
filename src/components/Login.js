@@ -60,13 +60,15 @@ class Login extends Component {
         let public_key = event.target.username.value;
         let private_key = event.target.password.value;
         const user = { public_key, private_key };
+
         this.props.onLogIn(user);
+        !this.props.auth.isUserSignedIn ? alert("private_key not exists") : console.log("logedin");
     }
 
     render() {
 
         if (this.props.auth.isUserSignedIn)
-        return <Redirect to='/home' />;
+            return <Redirect to='/home' />;
 
         return (
             <div>

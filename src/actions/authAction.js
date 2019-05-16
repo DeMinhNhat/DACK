@@ -14,7 +14,7 @@ export const logInError = (errorMessage) => ({
 });
 
 const encodeLoginTransaction = function(user, dispatch, thisSequence) {
-    // let txEncode = '0x';
+    let txEncode = '0x';
     let userName = null;
 
     Promise.all([
@@ -50,40 +50,40 @@ const encodeLoginTransaction = function(user, dispatch, thisSequence) {
                 })
                 userName = transaction.getUserName(data, user.public_key);
             }
-            const thisUser = { userName, ...user };
-            userName ? dispatch(logInSuccess(thisUser)) : dispatch(logInError('St goes wrong'));
-            //
-            // const tx = {
-            //     version: 1,
-            //     operation: "payment",
-            //     params: {
-            //         address: 'GAO4J5RXQHUVVONBDQZSRTBC42E3EIK66WZA5ZSGKMFCS6UNYMZSIDBI',
-            //         amount: 1,
-            //     },
-            //     account: user.public_key,
-            //     sequence: thisSequence - 1,
-            //     memo: Buffer.alloc(0),
-            // }
-            // transaction.sign(tx, user.private_key);
-            // txEncode = '0x' + transaction.encode(tx).toString('hex');
-            // return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
+            // const thisUser = { userName, ...user };
+            // userName ? dispatch(logInSuccess(thisUser)) : dispatch(logInError('St goes wrong'));
+            
+            const tx = {
+                version: 1,
+                operation: "payment",
+                params: {
+                    address: 'GAO4J5RXQHUVVONBDQZSRTBC42E3EIK66WZA5ZSGKMFCS6UNYMZSIDBI',
+                    amount: 2,
+                },
+                account: user.public_key,
+                sequence: thisSequence,
+                memo: Buffer.alloc(0),
+            }
+            transaction.sign(tx, user.private_key);
+            txEncode = '0x' + transaction.encode(tx).toString('hex');
+            return axios.post("https://komodo.forest.network/broadcast_tx_commit?tx=" + txEncode);
         })
-        // .then((res) => {
-        //     console.log(res)
-        //     if (res.data.result !== undefined) {
-        //         if (res.data.result.height === "0") {
-        //             dispatch(logInError('sequence mismatch or st goes wrong'));
-        //             // dispatch(chainAction.getSequence(128))
-        //         } else {
-        //             const thisUser = { userName, ...user };
-        //             dispatch(logInSuccess(thisUser));
-        //             dispatch(chainAction.getSequence(++thisSequence));
-        //         }
-        //     } else {
-        //         dispatch(logInError(res.data.error.message));
-        //         // dispatch(chainAction.getSequence(128))
-        //     }
-        // })
+        .then((res) => {
+            console.log(res)
+            if (res.data.error === undefined) {
+                if (res.data.result.height === "0") {
+                    dispatch(logInError('sequence mismatch or st goes wrong'));
+                    // dispatch(chainAction.getSequence(128))
+                } else {
+                    const thisUser = { userName, ...user };
+                    dispatch(logInSuccess(thisUser));
+                    dispatch(chainAction.getSequence(++thisSequence));
+                }
+            } else {
+                dispatch(logInError(res.data.error.message));
+                // dispatch(chainAction.getSequence(128))
+            }
+        })
         .catch((err) => {
             dispatch(logInError(err));
         });

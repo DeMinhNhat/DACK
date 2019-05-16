@@ -12,18 +12,18 @@ export default class Posts extends Component {
     };
   }
 
-  componentDidMount() {
-    let timer = setInterval(this.tick, 1000);
-    this.setState({ timer });
-  }
+  // componentDidMount() {
+  //   let timer = setInterval(this.tick, 1000);
+  //   this.setState({ timer });
+  // }
 
-  componentWillUnmount() {
-    clearInterval(this.state.timer);
-  }
+  // componentWillUnmount() {
+  //   clearInterval(this.state.timer);
+  // }
 
-  tick = () => {
-    this.props.retrievePost();
-  };
+  // tick = () => {
+  //   this.props.retrievePost();
+  // };
 
   render() {
     let posts = this.state.posts ? (
